@@ -1,0 +1,205 @@
+body
+{
+    font-family: 'Helvetica Neue';
+    background-color: #ffffff!important;
+}
+#passCard {
+    height: 474px;
+    position: relative;
+    width: 400px;
+    margin: 0 auto;
+
+    color: #000;
+    border-radius: 15px !important;
+}
+#passCard > div {
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 15px !important;
+}
+#passCard > div::before {
+    background-image: none;
+}
+
+#passFront, #passBack {
+    /*background:  url('/image/BG_WEB.png') no-repeat center center;*/
+    /*background: #ae8566; // For browsers that do not support gradients*/
+    background: -webkit-linear-gradient(#f6f7fb, #f6f7fb, #f6f7fb); // For Safari 5.1 to 6.0
+    background: -o-linear-gradient(#f6f7fb, #f6f7fb, #f6f7fb); // For Opera 11.1 to 12.0
+    background: -moz-linear-gradient(#f6f7fb, #f6f7fb, #f6f7fb); // For Firefox 3.6 to 15
+    background: linear-gradient(#f6f7fb, #f6f7fb, #f6f7fb); // Standard syntax
+    color: rgb(255, 255, 255);
+}
+
+#passFront {
+    padding: 10px 15px;
+}
+.pass {
+    background: "image/BG_WEB.png" ;
+}
+
+.decoration {
+    background: white none repeat scroll 0 0;
+    border-radius: 1.4em;
+    display: block;
+    height: 3em;
+    left: 12.7em;
+    position: absolute;
+    top: -1.5em;
+    width: 3em;
+}
+#headerFields .passField {
+    margin-left: 10px;
+}
+#headerFields {
+    padding-top: 20px;
+    padding-bottom: 25px;
+    height: 4em;
+    position: relative;
+    text-align: right;
+}
+
+#headerFields img {
+    left: 0;
+    max-height: 58px;
+    max-width: 250px;
+    position: absolute;
+    top: 0;
+}
+#headerFields h1 {
+    float: left;
+    font-size: 1.25em;
+    line-height: 1.75em;
+    margin: 0;
+}
+.wrapper img {
+    max-width: 100%;
+}
+img {
+    border: medium none;
+}
+h1 {
+    font-size: 1.4em;
+}
+label.name {
+    font-size: 25px !important;
+    font-weight: 300 !important;
+}
+label.email {
+    font-size: 18px !important;
+    text-transform: lowercase !important;
+}
+.label {
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #000 !important;
+    font-size: 13px;
+}
+.span {
+    font-size: 15px;
+}
+#primaryFields {
+    text-align: center;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    clear: both;
+    margin: 0 -1.2em 2em;
+    padding: 0 1.2em;
+    position: relative;
+}
+#primaryFields > .content {
+    float: left;
+    width: 100%;
+    position: relative;
+    padding-left: 15px;
+}
+
+#primaryFields > .content > tbody > tr > td > label.label{
+    padding-bottom: 5px !important;
+}
+
+#primaryFields > .content > tbody > tr > td > label.name {
+    text-transform: capitalize;
+    padding: 0 0 20px 0;
+}
+
+#primaryFields > .content > tbody > tr > td > label.span{
+    font-weight: 300 !important;
+    padding: 0 0 20px 0;
+}
+
+#primaryFields > .content > tbody > tr > td > label{
+    width: 100%;
+    float: left;
+    margin: 0 !important;
+    text-align: left;
+    width: 100%;
+    float: left;
+    color: #bc9b5d;
+}
+#primaryFields > .content > tbody > tr > td > img{
+    max-height: 100%;
+    max-width: 100%;
+}
+
+#barcode::before {
+    background-image: none;
+}
+#barcode::before {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: "";
+    display: block;
+    height: auto;
+    margin-bottom: 2px;
+}
+#barcode {
+    left: 0;
+    min-height: 70px;
+    position: relative;
+    right: 0;
+    text-align: center;
+}
+#barcode > div {
+    background: white none repeat scroll 0 0;
+    border-radius: 5px;
+    color: black;
+    display: inline-block;
+    margin: auto;
+    padding: 7px;
+}
+#barcode img {
+    display: block;
+    margin: auto;
+}
+#passFront .infoButton {
+    border-color: rgb(255, 255, 255);
+    display: none !important;
+}
+#passFront .infoButton {
+    bottom: 8px;
+    position: absolute;
+    right: 8px;
+}
+.infoButton {
+    border: 1px solid white;
+    border-radius: 50%;
+    color: inherit;
+    cursor: pointer;
+    display: block;
+    float: right;
+    font-family: serif;
+    font-size: 16px;
+    font-weight: bold;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    width: 18px;
+}
+._foot {
+    color: #333;
+}

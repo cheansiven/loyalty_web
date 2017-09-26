@@ -1,0 +1,1 @@
+{"Action":"Delete","PrimaryEntityId":"2ce506ca-2741-e711-8159-e0071b67cb31","PrimaryEntityName":"idcrm_loyaltycard"}
