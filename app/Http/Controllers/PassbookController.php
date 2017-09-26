@@ -743,20 +743,20 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
             $loyaltyData['date_of_birth'] = $pass->date_of_birth;
             $loyaltyData['owningteam'] = $pass->owningteam;
 
-//            if ($agent->is("iPhone") || $agent->isAndroidOS()) {
+            if ($agent->is("iPhone") || $agent->isAndroidOS()) {
 
                 //Immediately render pass
                 $this->generate_pass_gcrc($loyaltyData);
 
-//            } else {
-//
-//                return view("passes.gcrc", [
-//                    'qrcode' => $this->generate($pass->card_id),
-//                    'pass_data' => $pass
-//                ]);
-//
-//
-//            }
+            } else {
+
+                return view("passes.gcrc", [
+                    'qrcode' => $this->generate($pass->card_id),
+                    'pass_data' => $pass
+                ]);
+
+
+            }
         } else {
             return response()->json(array(
                 'status' => 401
