@@ -354,7 +354,7 @@
                                 <p>Dear {{ $contact_name }},</p>
                                 <p>It was great to see you at <b>{{ $venue }}</b>; {{ $_date.' '. $_time }}</p>
                                 <p>You spent {{ $transaction_amount }}.</p>
-                                <p>Now your current points are {{ $current_points }}</p><br/>
+                                <p>Now your current points are {{ intval($current_points) }}</p><br/>
                                 <p>
                                   To download your card, please click on the link below and add it into your wallet. If you don't use an IPhone, the card will be displayed in html page
                                 </p>
