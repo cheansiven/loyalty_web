@@ -1645,7 +1645,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                     $title = "Alex at Uma Nota";
                     $this->dispatch(new SendMail($loyaltyData['emailaddress1'], "info@uma-nota.com", $subject, $title, $mail_data));
 
-                    $pass_type_id = PASS_TYPE_VIAZUL_IDENTIFIER;
+                    $pass_type_id = PASS_TYPE_IDENTIFIER;
 
                     $pusback = array(
                         "idcrm_authenticationtoken" => $loyaltyData['authenticationToken'],
