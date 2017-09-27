@@ -34,7 +34,7 @@
 	                	<div id="passFront" class="pass">
 							<div class="decoration"></div>
 							<div id="headerFields">
-								<h1><img src="{{ \Illuminate\Support\Facades\URL::to("/").'/image/gcrc/logo@3x.png' }}" style="margin-top: 10px;margin-bottom: 10px"/></h1>
+								<h1><img src="{{ \Illuminate\Support\Facades\URL::to("/").'/image/gcrc/logo@3x.png' }}" style="margin-bottom: 10px"/></h1>
 								<div>
 										<div class="passField" style="text-align: inherit;">
 												<label class="label lebel-size">CURRENT POINT</label>
