@@ -20,7 +20,7 @@ define("PASS_AUTH_TOKEN",'vxwxd7J8AlNNFPS8k0a0FfUFtq0ewzFdc');
 
 //Card
 define("P12_FILE",BASE_CERTIFICATE_PATH.'pass.com.idcrmltd.umanota.p12');
-define("PUSH_NOTIFICATION_CERT",BASE_CERTIFICATE_PATH.'pushumanota.pem');
+define("PUSH_NOTIFICATION_CERT",BASE_CERTIFICATE_PATH.'pushumanota1.pem');
 define("P12_PASSWORD",'1111');
 define("PASS_TYPE_IDENTIFIER", "pass.com.idcrmltd.umanota");
 
