@@ -351,7 +351,7 @@
                     <tr>
 
                         <td align="center" valign="top" cellpadding="0" cellspacing="0">
-                            <img class="logo" src="https://classifiedrewards.haricrm.com/image/gcrc/Paulistas_Clube_Header.png"/>
+                            <img class="logo" src="https://umanota.haricrm.com/image/gcrc/Paulistas_Clube_Header.png"/>
 
                         </td>
 
@@ -371,7 +371,7 @@
                                     <p><a href="{{ $url }}" target="_blank" style="color:#BC9B5D">Click here</a></p>
                                     <p>Feel free to use it !</p>
                                     <p>See you soon,</p><br/>
-                                    <p><img src="https://classifiedrewards.haricrm.com/image/gcrc/Paulistas_Clube_Email_Sig.png" /></p>
+                                    <p><img src="https://umanota.haricrm.com/image/gcrc/Paulistas_Clube_Email_Sig.png" /></p>
                             </div>
 
                         </td>
@@ -395,16 +395,12 @@
                                         <div style="text-align:center;color:#FFF;">
                                             <a href="http://www.haricrm.com"
                                                title="" class="" target="_blank">
-                                                <img align="center" alt="" src="https://classifiedrewards.haricrm.com/image/PowerbyHariCRM_Black.png" style="max-width:1024px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage"/>
+                                                <img align="center" alt="" src="https://umanota.haricrm.com/image/PowerbyHariCRM_Black.png" style="max-width:1024px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage"/>
                                             </a>
                                         </div>
-
                                     </td>
-
                                 </tr>
-
                             </table>
-
                         </td>
 
                     </tr>

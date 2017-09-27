@@ -558,14 +558,14 @@ class PassbookController extends Controller
                     array(
                         'key' => 'terms',
                         'label' => 'TERMS & CONDITIONS',
-                        'value' => '• Each person may only apply for one e-loyalty card. Members must be 18 years and over. 
+                        'value' => '• Each person may only apply for one e-loyalty card. Members must be 18 years and over.
 • Customers must present a valid Clube card to credit the transaction and visit count
-• Transaction values (inclusive of service charge) will be rounded down 
+• Transaction values (inclusive of service charge) will be rounded down
 • Transaction values and the visit count are to be earned immediately upon settlement of the bill
 • Transaction values and the visit count cannot be transferred to another party
 • The Paulistas Clube card and associated offers cannot be exchanged for cash and may not be used in conjunction with any other offers and promotions. Click on Front Click on Back
 • The e-loyalty card is valid in Hong Kong only.
-• Uma Nota reserves the right to modify The Paulistas Clube structure, benefits and Terms & Conditions other without prior notice 
+• Uma Nota reserves the right to modify The Paulistas Clube structure, benefits and Terms & Conditions other without prior notice
 • In case of dispute, the decision of Uma Nota’s management of The Paulistas Clube shall be final. The Paulistas Clube is trademarked by Uma Nota.',
                         'changeMessage' => "Changed to %@"
                     ),
@@ -914,7 +914,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
 
             if ($result) {
                 $serial_voucher =isset($voucher['serial_number'])?$voucher['serial_number']:"";
-                $url = "https://classifiedrewards.haricrm.com/download_voucher/$serial_voucher";
+                $url = "https://umanota.haricrm.com/download_voucher/$serial_voucher";
                 $mail_data = array(
                     "url" => $url, // . $voucher['serial_number'],
                     "serial_number" => isset($voucher['serial_number'])?$voucher['serial_number']:"",
@@ -951,7 +951,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
         }else if( $voucher['action'] == "Update" && (isset($voucher[IDCRM_SEND_PASSBOOK]) && $voucher[IDCRM_SEND_PASSBOOK] == SEND_VOUCHER_RESEND)){
             $result = $this->_store_card_data($voucher['action'], $voucher);
             if ($result) {
-                $url = "https://classifiedrewards.haricrm.com/download_voucher/".$voucher['serial_number'];
+                $url = "https://umanota.haricrm.com/download_voucher/".$voucher['serial_number'];
                 $mail_data = array(
                     "url" => $url,
                     "serial_number" => isset($voucher['serial_number'])?$voucher['serial_number']:"",
@@ -1119,14 +1119,14 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                     [
                         'key' => 'terms',
                         'label' => 'TERMS & CONDITIONS',
-                        'value' => '• Each person may only apply for one e-loyalty card. Members must be 18 years and over. 
+                        'value' => '• Each person may only apply for one e-loyalty card. Members must be 18 years and over.
 • Customers must present a valid Clube card to credit the transaction and visit count
-• Transaction values (inclusive of service charge) will be rounded down 
+• Transaction values (inclusive of service charge) will be rounded down
 • Transaction values and the visit count are to be earned immediately upon settlement of the bill
 • Transaction values and the visit count cannot be transferred to another party
 • The Paulistas Clube card and associated offers cannot be exchanged for cash and may not be used in conjunction with any other offers and promotions. Click on Front Click on Back
 • The e-loyalty card is valid in Hong Kong only.
-• Uma Nota reserves the right to modify The Paulistas Clube structure, benefits and Terms & Conditions other without prior notice 
+• Uma Nota reserves the right to modify The Paulistas Clube structure, benefits and Terms & Conditions other without prior notice
 • In case of dispute, the decision of Uma Nota’s management of The Paulistas Clube shall be final. The Paulistas Clube is trademarked by Uma Nota.',
                         'changeMessage' => "Changed to %@"
                     ],
@@ -1363,7 +1363,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
 
 
             $mail_data = array(
-                "url" => "https://classifiedrewards.haricrm.com/download_card/" . $spending_data['idcrm_loyaltycardid'],
+                "url" => "https://umanota.haricrm.com/download_card/" . $spending_data['idcrm_loyaltycardid'],
                 "serial_number" => $spending_data['idcrm_loyaltycardid'],
                 'first_name' => isset($spending_data['firstname']) ? $spending_data['firstname'] : "",
                 'last_name' => isset($spending_data['lastname']) ? $spending_data['lastname'] : "",
@@ -1598,7 +1598,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
 
                     $this->_store_card_data($action, $loyaltyData);
                     $mail_data = array(
-                        "url" => "https://classifiedrewards.haricrm.com/download_card/" . $loyaltyData['serial_number'],
+                        "url" => "https://umanota.haricrm.com/download_card/" . $loyaltyData['serial_number'],
                         "serial_number" => $loyaltyData['serial_number'],
                         "contact_name" => $full_name,
                         'first_name' => isset($loyaltyData['firstname']) ? $loyaltyData['firstname'] : "",
@@ -1628,7 +1628,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                 $result = $this->_store_card_data($action, $loyaltyData);
                 if ($result) {
                     $mail_data = array(
-                        "url" => "https://classifiedrewards.haricrm.com/download_card/" . $loyaltyData['serial_number'],
+                        "url" => "https://umanota.haricrm.com/download_card/" . $loyaltyData['serial_number'],
                         "serial_number" => $loyaltyData['serial_number'],
                         "contact_name" => $full_name,
                         'first_name' => isset($loyaltyData['firstname']) ? $loyaltyData['firstname'] : "",
