@@ -32,7 +32,7 @@ define("PASS_TYPE_IDENTIFIER_VOUCHER", "pass.come.idcrmltd.umanotavoucher");
 define("TEAM_IDENTIFIER", "7Y4PN8538L");
 
 define("ORGANIZATION_NAME", "Soteca");
-define("WEB_SERVICE_URL", "https://classifiedrewards.haricrm.com");
+define("WEB_SERVICE_URL", "https://umanota.haricrm.com");
 define("OUTPUT_PATH",getcwd().'/Output.raw');
 define("ICON_FILE", getcwd().'/image/image.png');
 define("LOGO_FILE", getcwd().'/image/logo.png');

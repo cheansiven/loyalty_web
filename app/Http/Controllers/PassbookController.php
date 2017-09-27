@@ -1523,7 +1523,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
             $loyaltyData['authenticationToken'] = PASS_AUTH_TOKEN;
             $loyaltyData['action'] = $data['message'][0]['Action'];
             $loyaltyData['serial_number'] = $loyaltyData["cardId"]; // Serial number is the same as card Id
-            $loyaltyData['pass_type_identifier'] = PASS_TYPE_IDENTIFIER_VOUCHER;
+            $loyaltyData['pass_type_identifier'] = PASS_TYPE_IDENTIFIER;
 
             $full_name = isset($loyaltyData['firstname']) ? $loyaltyData['firstname'] : "";
             $full_name .= " ";
