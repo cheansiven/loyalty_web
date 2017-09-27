@@ -1226,7 +1226,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
         }
     }
 
-    public function trigger_contact()
+    public function trigger_transaction()
     {
         try {
             $rawInput = fopen('php://input', 'r');

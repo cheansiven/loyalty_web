@@ -92,7 +92,7 @@ Route::get("test_template",function(){
     Route::get('retry/{id}', 'QueueController@retryFailJob');
     Route::get('retry-all', 'QueueController@RetryAllJobFail');
     Route::any('webhook',"PassbookController@trigger");
-    Route::any('webhook-contact',"PassbookController@trigger_contact");
+    Route::any('webhook-transaction',"PassbookController@trigger_transaction");
     Route::any('webhook-delete-card',"PassbookController@trigger_delete_card");
     Route::any('webhook-create-voucher',"PassbookController@trigger_create_voucher");
     Route::get('google-wallet', 'GoogleWalletController@index');
