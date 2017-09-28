@@ -40,7 +40,6 @@
             bottom: 0;
             width: 100%;
             height: 40px;
-            background-color: #3d3d3d;
             padding-top: 5px;
             z-index: 100;
         }
@@ -82,7 +81,7 @@
             <a href="http://www.haricrm.com"
                title="" class="" target="_blank">
 
-                    <img align="center" alt="" src="/image/powerByHariWhite.png" class="mcnImage"/>
+                    <img align="center" alt="" src="/image/PowerbyHariCRM_Black.png" class="mcnImage"/>
 
 
             </a>

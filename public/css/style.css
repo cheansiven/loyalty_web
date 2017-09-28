@@ -67,3 +67,13 @@ h4 {
         left: 0 !important
     }
 }
+
+
+input:focus{
+
+    outline-color:#BC9B5D!important;
+}
+
+textarea:focus{
+    outline-color:#BC9B5D!important;
+}

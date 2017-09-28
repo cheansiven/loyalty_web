@@ -67,7 +67,7 @@
                 <div style="text-align: center">
                     <a class="" href="/" style="padding:0px 15px!important">
                         @if(isset(\Request::route()->uri)? (\Request::route()->uri != "success"):"" )
-                            <img src="{{asset("image/gcrc/uma_nota_logo.png")}}" style="padding: 75px 0 20px; width: 100%"/>
+                            <img src="{{asset("image/logo@3x.png")}}" style="height: 120px;margin-top: 30px;margin-bottom: 30px;"/>
                         @endif
                     </a>
                 </div>
@@ -164,17 +164,17 @@
                             <li id="foli5" class="date eurodate notranslate">
                                 <label class="desc" id="title5" for="Field5">Date of Birth <span id="req_4" class="req">*</span></label>
                                 <span>
-                                        <input id="Field5-1" name="txt_day" type="text" class="field text large" value="{{ old("txt_day") }}" size="2" maxlength="2" tabindex="5" required/>
+                                        <input id="Field5-1" name="txt_day" type="text" class="field text large" value="{{ old("txt_day") }}" size="5" maxlength="2" tabindex="5" required/>
                                         <label for="Field5-1">DD</label>
                                     </span>
                                 <span class="symbol" style="padding-top: 3px;">/</span>
                                 <span>
-                                        <input id="Field5-2" name="txt_month" type="text" class="field text large" value="{{ old("txt_month") }}" size="2" maxlength="2" tabindex="6" required/>
+                                        <input id="Field5-2" name="txt_month" type="text" class="field text large" value="{{ old("txt_month") }}" size="5" maxlength="2" tabindex="6" required/>
                                         <label for="Field5-2" >MM</label>
                                     </span>
                                 <span class="symbol" style="padding-top: 3px;">/</span>
                                 <span>
-                                         <input id="Field5" name="txt_year" type="text" class="field text large" value="{{ old("txt_year") }}" size="4" maxlength="4" tabindex="7" required/>
+                                         <input id="Field5" name="txt_year" type="text" class="field text large" value="{{ old("txt_year") }}" size="8" maxlength="4" tabindex="7" required/>
                                         <label for="Field5">YYYY</label>
                                     </span>
                                 <span id="cal5" style="padding-top: 3px;">
@@ -248,7 +248,7 @@
                         <li class="buttons">
                             <div>
 
-                                <input name="saveForm" class="btTxt submit" type="submit" value="Submit"/>
+                                <input name="saveForm" class="btTxt submit" type="submit" value="Join Us"/>
                             </div>
                         </li>
                     </ul>
