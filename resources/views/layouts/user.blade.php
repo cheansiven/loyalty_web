@@ -42,6 +42,7 @@
             height: 40px;
             padding-top: 5px;
             z-index: 100;
+            background: white;
         }
 
     </style>
@@ -81,7 +82,7 @@
             <a href="http://www.haricrm.com"
                title="" class="" target="_blank">
 
-                    <img align="center" alt="" src="/image/Powerby_Black.png" class="mcnImage" style="height: 24px;"/>
+                    <img align="center" alt="" src="/image/Powerby_Black.png" class="mcnImage" style="height: 20px;"/>
 
 
             </a>
