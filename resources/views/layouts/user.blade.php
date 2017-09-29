@@ -81,7 +81,7 @@
             <a href="http://www.haricrm.com"
                title="" class="" target="_blank">
 
-                    <img align="center" alt="" src="/image/PowerbyHariCRM_Black.png" class="mcnImage"/>
+                    <img align="center" alt="" src="/image/Powerby_Black.png" class="mcnImage" style="height: 24px;"/>
 
 
             </a>
