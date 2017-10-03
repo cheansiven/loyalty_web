@@ -103,11 +103,13 @@ class PassbookController extends Controller
         \Log::info("Push Notification for owningteam:" . $owningteam);
 
         if($card_type =='voucher'){
+            \Log::info("Push Notification to Voucher......");
             $passphrase = P12_PASSWORD_VOUCHER;
 
             //Ck.pem half path of server
             $ck_pem_path = PUSH_NOTIFICATION_CERT_VOUCHER;
         }else{
+            \Log::info("Push Notification to Card......");
             //$passphrase=When you generate ck.pem used inside
             $passphrase = P12_PASSWORD;
 
