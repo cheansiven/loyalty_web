@@ -944,7 +944,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                     "venue" => isset($voucher['venue_name']) ? $voucher['venue_name'] : "",
                     "template" => isset($voucher['idcrm_emailtemplate'])?$voucher['idcrm_emailtemplate']:'mail_voucher'
                 );
-                $subject = "Welcome to The Paulistas Clube";
+                $subject = isset($voucher['idcrm_relatedloyaltypromotion'])?$voucher['idcrm_relatedloyaltypromotion']:"Welcome to The Paulistas Clube";
                 $title = "Alex at Uma Nota";
                 $type = "Alex at Uma Nota";
 
