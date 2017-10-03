@@ -370,12 +370,11 @@
                         <td>
 
                             <div class="article" style="position: relative;background:#ffffff;line-height: 30px;padding-top: 10px;padding-left: 10px;padding-right: 10px;color: #000;">
-                                <p>Dear {{ $contact_name }},</p>
-                                <p>We heard that you’ve lost a precious thing… don’t worry, all your vouchers are registered to your Customer Account. </p>
-                                <p>cashier will find you in the database, so you could enjoy your vouchers again.</p>
+                                <p><b>Olá  {{ $contact_name }},</b></p>
+                                <p>We heard that you’ve lost a previous thing… don’t worry, all your vouchers are registered to your Customer Account.</p>
+                                <p>Your waiter will find you in the database, so you can still redeem any available vouchers again.</p>
                                 <p><a href="{{ $url }}" style="color:#BC9B5D">Click here</a></p>
-                                <p>Feel free to use it !</p>
-                                <p>See you soon,</p><br/>
+                                <p>Obrigado! & see you soon,</p><br/>
                                 <p><img src="https://umanota.haricrm.com/image/gcrc/Paulistas_Clube_Email_Sig.png" /></p>
                             </div>
 

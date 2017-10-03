@@ -8,6 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Log;
+use App\Http\Service\ClientService;
 class Contact implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -72,6 +73,50 @@ class Contact implements ShouldQueue
             $loyaltyCardId = $loyalty_card->create();
             if ($loyaltyCardId) {
 
+                $condition['idcrm_ruletype'] = 527210007;
+                $programRule = $this->getCrmData("new_loyaltyprogramrule", $condition);
+                if(!empty($programRule))
+                {
+                    $voucher = $connection->entity('idcrm_loyaltyvoucher');
+                    foreach ($programRule as $key => $loyaltyProgramRule){
+                        $voucher->idcrm_loyaltyuser = $connection->entity("idcrm_loyaltyuser", LOYALTY_USER);
+                        $voucher->idcrm_sendpassbook = SEND_VOUCHER_OK;
+                        $voucher->idcrm_expirationdate = strtotime('+30 days', time()) + date("HKT");
+                        $voucher->idcrm_typeofvoucher = TYPE_OF_VOUCHER_PROMOTION;
+                        $voucher->idcrm_relatedcontact = $connection->entity("contact", $contactId);
+                        $voucher->idcrm_relatedloyaltyprogram = $connection->entity("idcrm_loyaltyprogram", LOYALTY_PROGRAM);
+                        if(isset($loyaltyProgramRule['idcrm_promotionearned'])){
+                            $voucher->idcrm_relatedloyaltypromotion = $connection->entity("idcrm_loyaltypromotion", $loyaltyProgramRule['idcrm_promotionearned']);
+                        }
+                        $voucher->idcrm_relatedloyaltycard = $connection->entity("idcrm_loyaltycard", $loyaltyCardId);
+                        if(isset($loyaltyProgramRule['new_loyaltyprogramruleid'])){
+                            $voucher->idcrm_relatedloyaltyprogramrule = $connection->entity("new_loyaltyprogramruleid", $loyaltyProgramRule['new_loyaltyprogramruleid']);
+                        }
+                        $voucher->idcrm_voucherstatus = VOUCHER_STATUS_OK;
+                        $voucher->create();
+                        if(isset($loyaltyProgramRule['new_loyaltyprogramruleid']) and
+                            !empty($loyaltyProgramRule['new_loyaltyprogramruleid']) and
+                            $loyaltyProgramRule['new_loyaltyprogramruleid']>0){
+
+                            $loyalty_condition['idcrm_loyaltycardid'] = $loyaltyCardId;
+                            $loyalty_data = $this->getCrmData('idcrm_loyaltycard', $loyalty_condition);
+                            if(!empty($loyalty_data))
+                            {
+                                $total_earn_point = isset($loyalty_data[0]['idcrm_totalpoints'])?(int) $loyalty_data[0]['idcrm_totalpoints']:0;
+                                $loyalty_card_update = $connection->entity("idcrm_loyaltycard", $loyaltyCardId);
+                                $loyalty_card_update->idcrm_totalpoints = (int) ( $total_earn_point + $loyaltyProgramRule['idcrm_pointearned']);
+                                $loyalty_card_update->update();
+                            }
+
+
+
+                        }
+                    }
+                }
+
+
+
+
                 if(isset($request['server_path']) && file_exists($request['server_path']))
                 {
                     unlink($request['server_path']);
@@ -99,6 +144,17 @@ class Contact implements ShouldQueue
         $connection = unserialize($connection);
         return $connection;
 
+    }
+
+
+    private function getCrmData($entity, $condition)
+    {
+
+        $client = new ClientService("hariservice.umanota@haricrm.com","Nightfa1","https://haricrm.crm5.dynamics.com");
+        $output =  $client->retriveCrmData($entity, $condition);
+
+
+        return $output;
     }
 
 

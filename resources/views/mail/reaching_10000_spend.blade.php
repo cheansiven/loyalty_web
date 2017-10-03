@@ -363,15 +363,17 @@
 
                             <div class="article" style="position: relative;background:#ffffff;line-height: 30px;padding-top: 10px;padding-left: 10px;padding-right: 10px;color: #000;">
 
-                                    <p><b>Olá  {{ $contact_name }},</b></p>
-                                    <p>Congratulations! You’ve unlocked your first benefit at Uma Nota!</p>
-                                    <p>
-                                        To download your voucher, click the button below to add it to your wallet. If you don’t use an iPhone, the card will be displayed as a HTML page.
-                                    </p>
-                                    <p><a href="{{ $url }}" target="_blank" style="color:#BC9B5D">Click here</a></p>
-                                    <p>Feel free to use it at your next visit!</p>
-                                    <p>Obrigado! & see you soon,</p><br/>
-                                    <p><img src="https://umanota.haricrm.com/image/gcrc/Paulistas_Clube_Email_Sig.png" /></p>
+                                <p><b>Olá  {{ $contact_name }},</b></p>
+                                <p>Hey Big Spender! To say thank you for spending your hard earned cash with us so regularly we’ve got a few Uma Nota goodies for you to enjoy when you visit us next.</p>
+                                <p>You’ve also unlocked privileges to;</p>
+                                &nbsp;&nbsp;&nbsp;<p>1.	Priority waitlist placement when you message +852 6053 1193 (min.1 hour before arrival)</p>
+                                &nbsp;&nbsp;&nbsp;<p>2.	Early bird access/ priority on event bookings</p>
+                                &nbsp;&nbsp;&nbsp;<p>3.	Exclusive access to future events/ collaborations at Uma Nota</p>
+                                <p>Terms and Condition apply see voucher.</p>
+                                <p>To download your voucher, click the button below to add it to your wallet. If you don’t use an iPhone, the card will be displayed as a HTML page.</p>
+                                <p><a href="{{ $url }}" target="_blank" style="color:#BC9B5D">Click here</a></p>
+                                <p>Obrigado! & see you soon,</p><br/>
+                                <p><img src="https://umanota.haricrm.com/image/gcrc/Paulistas_Clube_Email_Sig.png" /></p>
                             </div>
 
                         </td>

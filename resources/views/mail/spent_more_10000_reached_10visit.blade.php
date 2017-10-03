@@ -363,15 +363,13 @@
 
                             <div class="article" style="position: relative;background:#ffffff;line-height: 30px;padding-top: 10px;padding-left: 10px;padding-right: 10px;color: #000;">
 
-                                    <p><b>Olá  {{ $contact_name }},</b></p>
-                                    <p>Congratulations! You’ve unlocked your first benefit at Uma Nota!</p>
-                                    <p>
-                                        To download your voucher, click the button below to add it to your wallet. If you don’t use an iPhone, the card will be displayed as a HTML page.
-                                    </p>
-                                    <p><a href="{{ $url }}" target="_blank" style="color:#BC9B5D">Click here</a></p>
-                                    <p>Feel free to use it at your next visit!</p>
-                                    <p>Obrigado! & see you soon,</p><br/>
-                                    <p><img src="https://umanota.haricrm.com/image/gcrc/Paulistas_Clube_Email_Sig.png" /></p>
+                                <p><b>Olá  {{ $contact_name }},</b></p>
+                                <p>We’ve prepared a little something special for you to enjoy on your next visit.</p>
+                                <p>Terms and Condition apply see voucher.</p>
+                                <p>To download your voucher, click the button below to add it to your wallet. If you don’t use an iPhone, the card will be displayed as a HTML page.</p>
+                                <p><a href="{{ $url }}" target="_blank" style="color:#BC9B5D">Click here</a></p>
+                                <p>Obrigado! & see you soon,</p><br/>
+                                <p><img src="https://umanota.haricrm.com/image/gcrc/Paulistas_Clube_Email_Sig.png" /></p>
                             </div>
 
                         </td>

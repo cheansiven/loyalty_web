@@ -45,18 +45,28 @@ class ContactController extends Controller
 
     public function test_mail()
     {
-        try{
-            $data =[];
-            $MAIL= Mail::send("mail.test", $data, function($message) use ($data){
-                $message->from("test@gmail.com", "test");
-                $message->to("voeun@idcrm.com", "Voeun So");
-                $message->subject("Test");
 
-            });
-            dd($MAIL);
-        }catch (Exception $exception){
-            return $exception->getMessage();
+        $connection = $this->_getConnection("connection.txt");
+        $condition['idcrm_ruletype'] = 527210007;
+        $client = new ClientService("hariservice.umanota@haricrm.com","Nightfa1","https://haricrm.crm5.dynamics.com");
+        $programRule = $client->retriveCrmData("new_loyaltyprogramrule", $condition);
+
+        $loyalty_condition['idcrm_loyaltycardid'] = "dac51908-58a7-e711-8166-e0071b67cb31";
+        $card = $client->retriveCrmData("idcrm_loyaltycard", $loyalty_condition);
+
+        if(!empty($programRule)) {
+            $voucher = $connection->entity('idcrm_loyaltyvoucher');
+            foreach ($programRule as $key => $loyaltyProgramRule) {
+                if(isset($loyaltyProgramRule['new_loyaltyprogramruleid']) and
+                    !empty($loyaltyProgramRule['new_loyaltyprogramruleid']) and
+                    $loyaltyProgramRule['new_loyaltyprogramruleid']>0){
+                    $totalearnpoint = isset($card[0]['idcrm_totalpoints'])?$card[0]['idcrm_totalpoints']:0;
+                    dd($loyaltyProgramRule['idcrm_pointearned']+ $totalearnpoint);
+                }
+
+            }
         }
+
 
     }
 

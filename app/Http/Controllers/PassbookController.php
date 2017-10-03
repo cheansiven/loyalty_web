@@ -649,7 +649,6 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
     {
         $result = null;
 
-
         if ($action == 'Update') {
 
             $passCard =Passes::where('serial_number', $loyaltyData['serial_number'])->get();
@@ -771,11 +770,11 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
         $tempStream = fopen('php://temp', 'r+');
         stream_copy_to_stream($rawInput, $tempStream);
         rewind($tempStream);
-        if (!file_put_contents(getcwd() . '/temp-voucher.txt', $tempStream)) {
-            Log::create(['description' => 'Server could not write data to temporary location.']);
-            return "Server could not write data to temporary location.";
-
-        }
+//        if (!file_put_contents(getcwd() . '/temp-voucher.txt', $tempStream)) {
+//            Log::create(['description' => 'Server could not write data to temporary location.']);
+//            return "Server could not write data to temporary location.";
+//
+//        }
 
         $data = file_get_contents(getcwd() . '/temp-voucher.txt');
 
@@ -785,7 +784,6 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
             Log::create(['description' => 'Error undefined data.Please checking it thank.', 'status' => 1]);
             return "Data still empty";
         }
-
         $voucher = array();
         foreach ($data['message'][3]['data'] as $key => $value) {
             switch ($value['fieldName']) {
@@ -875,6 +873,22 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                         }
                     }
                     break;
+                case 'idcrm_relatedloyaltyprogramrule':
+                    foreach ($value['data'] as $relate_loyalty_program_rule) {
+                        if ($relate_loyalty_program_rule['fieldName'] == 'idcrm_description') {
+                            $voucher[$relate_loyalty_program_rule['fieldName']] = isset($relate_loyalty_program_rule['value']) ? $relate_loyalty_program_rule['value'] : "";
+                        }else if($relate_loyalty_program_rule['fieldName'] == 'idcrm_promotionearned'){
+                            $voucher[$relate_loyalty_program_rule['fieldName']] = isset($relate_loyalty_program_rule['value']) ? $relate_loyalty_program_rule['value'] : "";
+                        }else if($relate_loyalty_program_rule['fieldName'] == 'idcrm_pointstoearn'){
+                            $voucher[$relate_loyalty_program_rule['fieldName']] = isset($relate_loyalty_program_rule['value']) ? $relate_loyalty_program_rule['value'] : "";
+                        }else if($relate_loyalty_program_rule['fieldName'] == 'idcrm_emailtemplate'){
+                            $voucher[$relate_loyalty_program_rule['fieldName']] = isset($relate_loyalty_program_rule['value']) ? $relate_loyalty_program_rule['value'] : "";
+                        }
+                    }
+                    break;
+                case 'idcrm_voucherstatus':
+                    $voucher[$value['fieldName']] = isset($value['label']) ? $value['label'] : "";
+                    break;
                 case FIELD_IDCRM_CREATE_ON:
                     $voucher[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
                     break;
@@ -904,6 +918,8 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
         $voucher_data = array(
             'idcrm_promotionname' => isset($voucher['idcrm_promotionname'])?$voucher['idcrm_promotionname']:"",
             'idcrm_expirationdate' => isset($voucher['idcrm_expirationdate'])?$voucher['idcrm_expirationdate']:"",
+            'idcrm_description' => isset($voucher['idcrm_description'])?$voucher['idcrm_description']:"",
+            'idcrm_voucherstatus' => isset($voucher['idcrm_voucherstatus'])?$voucher['idcrm_voucherstatus']:"",
         );
 
         $voucher['voucher_data'] = serialize($voucher_data);
@@ -923,7 +939,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                     'last_name' => isset($voucher['lastname']) ? $voucher['lastname'] : "",
                     "loyalty_program" => isset($voucher['idcrm_programname']) ? $voucher['idcrm_programname'] : "",
                     "venue" => isset($voucher['venue_name']) ? $voucher['venue_name'] : "",
-                    "template" => 'mail_voucher'
+                    "template" => isset($voucher['idcrm_emailtemplate'])?$voucher['idcrm_emailtemplate']:'mail_voucher'
                 );
                 $subject = "Welcome to The Paulistas Clube";
                 $title = "Alex at Uma Nota";
@@ -1014,20 +1030,20 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
             $loyaltyData['pass_type'] = $pass->pass_type;
 
 
-           if ($agent->is("iPhone") || $agent->isAndroidOS()) {
+//           if ($agent->is("iPhone") || $agent->isAndroidOS()) {
 
                 //Immediately render pass
                 $this->_generate_voucher($loyaltyData);
 
-            } else {
-
-                return view("passes.voucher", [
-                    'qrcode' => $this->generate($pass->card_id),
-                    'pass_data' => $pass
-                ]);
-
-
-            }
+//            } else {
+//
+//                return view("passes.voucher", [
+//                    'qrcode' => $this->generate($pass->card_id),
+//                    'pass_data' => $pass
+//                ]);
+//
+//
+//            }
         } else {
             return response()->json(array(
                 'status' => 401
@@ -1042,7 +1058,6 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
     {
 
         $voucher_data = (isset($loyaltyData['voucher_data']) and !empty($loyaltyData['voucher_data']))?unserialize($loyaltyData['voucher_data']):array();
-
         $image_path = resource_path('images');
 
         if (!file_exists(WWDR_FILE)) {
@@ -1094,18 +1109,19 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                 ],
                 'secondaryFields' => [
                     [
+                        'key' => 'status',
+                        'label' => 'Status',
+                        'value' => isset($voucher_data['idcrm_voucherstatus'])?$voucher_data['idcrm_voucherstatus']:"",
+                        'changeMessage' => "Changed to %@"
+                    ],
+                    [
 
                         'key' => 'expires',
                         'label' => 'Expires',
                         'value' => !empty($voucher_data['idcrm_expirationdate']) ? date("d.m.Y h:i a", strtotime($voucher_data['idcrm_expirationdate'])) : "N/A",
                         'changeMessage' => "Changed to %@"
                     ],
-//                    [
-//                        'key' => 'promotion',
-//                        'label' => 'Promotion Start',
-//                        'value' => "2017-01-01",
-//                        'changeMessage' => "Changed to %@"
-//                    ],
+
                 ],
                 'auxiliaryFields' => [
 //                    [
@@ -1119,15 +1135,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                     [
                         'key' => 'terms',
                         'label' => 'TERMS & CONDITIONS',
-                        'value' => '• Each person may only apply for one e-loyalty card. Members must be 18 years and over.
-• Customers must present a valid Clube card to credit the transaction and visit count
-• Transaction values (inclusive of service charge) will be rounded down
-• Transaction values and the visit count are to be earned immediately upon settlement of the bill
-• Transaction values and the visit count cannot be transferred to another party
-• The Paulistas Clube card and associated offers cannot be exchanged for cash and may not be used in conjunction with any other offers and promotions. Click on Front Click on Back
-• The e-loyalty card is valid in Hong Kong only.
-• Uma Nota reserves the right to modify The Paulistas Clube structure, benefits and Terms & Conditions other without prior notice
-• In case of dispute, the decision of Uma Nota’s management of The Paulistas Clube shall be final. The Paulistas Clube is trademarked by Uma Nota.',
+                        'value' => isset($voucher_data['idcrm_description'])?$voucher_data['idcrm_description']:"",
                         'changeMessage' => "Changed to %@"
                     ],
                     [

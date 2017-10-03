@@ -111,6 +111,10 @@ define('SEND_VOUCHER_NO', 527210000);
 define('SEND_VOUCHER_RESEND', 527210002);
 
 
+define('TYPE_OF_VOUCHER_PROMOTION', 527210001);
+define('VOUCHER_STATUS_OK', 527210000);
+
+
 define('IDCRM_SEND_PASSBOOK', "idcrm_sendpassbook");
 define('IDCRM_EXPIRED_DATE', "idcrm_expirationdate");
 define('IDCRM_VOUCHER_NAME', "idcrm_name");
