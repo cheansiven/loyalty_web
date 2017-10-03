@@ -96,9 +96,9 @@ class Contact implements ShouldQueue
                         }
                         $voucher->idcrm_voucherstatus = VOUCHER_STATUS_OK;
                         $voucher->create();
-                        if(isset($loyaltyProgramRule['new_loyaltyprogramruleid']) and
-                            !empty($loyaltyProgramRule['new_loyaltyprogramruleid']) and
-                            $loyaltyProgramRule['new_loyaltyprogramruleid']>0){
+                        if(isset($loyaltyProgramRule['idcrm_pointearned']) and
+                            !empty($loyaltyProgramRule['idcrm_pointearned']) and
+                            $loyaltyProgramRule['idcrm_pointearned']>0){
 
                             $loyalty_condition['idcrm_loyaltycardid'] = $loyaltyCardId;
                             $loyalty_data = $this->getCrmData('idcrm_loyaltycard', $loyalty_condition);
