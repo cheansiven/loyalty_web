@@ -72,15 +72,15 @@ class Contact implements ShouldQueue
             $loyalty_card->transactioncurrencyid = $connection->entity("transactioncurrency", HK_CURRENCY);
             $loyaltyCardId = $loyalty_card->create();
             if ($loyaltyCardId) {
-                \Log::info('Card has been created ...');
+                Log::create(['description'=>"Card has create ...",'status'=>4]);
                 $condition['idcrm_ruletype'] = 527210007;
                 $programRule = $this->getCrmData("new_loyaltyprogramrule", $condition);
                 if(!empty($programRule))
                 {
-                    \Log::info('Program Rule has welcome Voucher ...');
+                    Log::create(['description'=>"Program Rule has welcome Voucher ...",'status'=>4]);
                     $voucher = $connection->entity('idcrm_loyaltyvoucher');
                     foreach ($programRule as $key => $loyaltyProgramRule){
-                        \Log::info('Program Rule has welcome Voucher ...');
+                        Log::create(['description'=>"Program Rule has welcome Voucher ...",'status'=>4]);
                         $voucher->idcrm_loyaltyuser = $connection->entity("idcrm_loyaltyuser", LOYALTY_USER);
                         $voucher->idcrm_sendpassbook = SEND_VOUCHER_OK;
                         $voucher->idcrm_expirationdate = strtotime('+30 days', time()) + date("HKT");
@@ -114,7 +114,9 @@ class Contact implements ShouldQueue
 
                         }
                     }
+
                 }else{
+                    Log::create(['description'=>"Program Rule no have welcome Voucher ...",'status'=>4]);
                     \Log::info('Program Rule no have welcome Voucher ...');
                 }
 
