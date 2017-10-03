@@ -924,7 +924,9 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
 
         $voucher['voucher_data'] = serialize($voucher_data);
 
-        $contact_name = isset($voucher['firstname']) ? $voucher['firstname'] : "". ' ' . isset($voucher['lastname']) ? $voucher['lastname'] : "";
+        $contact_name = isset($loyaltyData['firstname']) ? $loyaltyData['firstname'] : "";
+        $contact_name .= " ";
+        $contact_name .= isset($loyaltyData['lastname']) ? $loyaltyData['lastname'] : "";
 
         if( $voucher['action'] == "Create" &&  (isset($voucher[IDCRM_SEND_PASSBOOK]) && $voucher[IDCRM_SEND_PASSBOOK] == SEND_VOUCHER_OK)){
             $result = $this->_store_card_data($voucher['action'], $voucher);
