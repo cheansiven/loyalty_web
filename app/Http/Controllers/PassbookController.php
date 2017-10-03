@@ -770,11 +770,11 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
         $tempStream = fopen('php://temp', 'r+');
         stream_copy_to_stream($rawInput, $tempStream);
         rewind($tempStream);
-//        if (!file_put_contents(getcwd() . '/temp-voucher.txt', $tempStream)) {
-//            Log::create(['description' => 'Server could not write data to temporary location.']);
-//            return "Server could not write data to temporary location.";
-//
-//        }
+        if (!file_put_contents(getcwd() . '/temp-voucher.txt', $tempStream)) {
+            Log::create(['description' => 'Server could not write data to temporary location.']);
+            return "Server could not write data to temporary location.";
+
+        }
 
         $data = file_get_contents(getcwd() . '/temp-voucher.txt');
 
