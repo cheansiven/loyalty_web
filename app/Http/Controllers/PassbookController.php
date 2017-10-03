@@ -669,7 +669,6 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                     'contact_id' => isset($loyaltyData['idcrm_contactid'])?$loyaltyData['idcrm_contactid']:"",
                     'date_of_birth' => isset($loyaltyData['birthdate'])?$loyaltyData['birthdate']:"",
                     'owningteam' => isset($loyaltyData['owningteam'])?$loyaltyData['owningteam']:"",
-                    'voucher_data' => isset($loyaltyData['voucher_data'])?$loyaltyData['voucher_data']:serialize(array()),
                     'idcrm_promotionname' => isset($loyaltyData['idcrm_promotionname'])?$loyaltyData['idcrm_promotionname']:"",
                     'idcrm_expirationdate' => isset($loyaltyData['idcrm_expirationdate'])?$loyaltyData['idcrm_expirationdate']:"",
                     'idcrm_description' => isset($loyaltyData['idcrm_description'])?$loyaltyData['idcrm_description']:"",
@@ -709,7 +708,6 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
         $pass->contact_id = isset($loyaltyData['idcrm_contactid'])?$loyaltyData['idcrm_contactid']:"";
         $pass->date_of_birth = isset($loyaltyData['birthdate'])?$loyaltyData['birthdate']:"";
         $pass->owningteam = isset($loyaltyData['owningteam'])?$loyaltyData['owningteam']:"";
-        $pass->voucher_data = isset($loyaltyData['voucher_data'])?$loyaltyData['voucher_data']:serialize(array());
         $pass->idcrm_promotionname = isset($loyaltyData['idcrm_promotionname'])?$loyaltyData['idcrm_promotionname']:"";
         $pass->idcrm_expirationdate = isset($loyaltyData['idcrm_expirationdate'])?$loyaltyData['idcrm_expirationdate']:"";
         $pass->idcrm_description = isset($loyaltyData['idcrm_description'])?$loyaltyData['idcrm_description']:"";
