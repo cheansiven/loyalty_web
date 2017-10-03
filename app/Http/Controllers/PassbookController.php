@@ -924,6 +924,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
 
         $voucher['voucher_data'] = serialize($voucher_data);
 
+        $contact_name = isset($voucher['firstname']) ? $voucher['firstname'] : "". ' ' . isset($voucher['lastname']) ? $voucher['lastname'] : "";
 
         if( $voucher['action'] == "Create" &&  (isset($voucher[IDCRM_SEND_PASSBOOK]) && $voucher[IDCRM_SEND_PASSBOOK] == SEND_VOUCHER_OK)){
             $result = $this->_store_card_data($voucher['action'], $voucher);
@@ -934,7 +935,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                 $mail_data = array(
                     "url" => $url, // . $voucher['serial_number'],
                     "serial_number" => isset($voucher['serial_number'])?$voucher['serial_number']:"",
-                    "contact_name" => "",
+                    "contact_name" => $contact_name,
                     'first_name' => isset($voucher['firstname']) ? $voucher['firstname'] : "",
                     'last_name' => isset($voucher['lastname']) ? $voucher['lastname'] : "",
                     "loyalty_program" => isset($voucher['idcrm_programname']) ? $voucher['idcrm_programname'] : "",
@@ -971,7 +972,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                 $mail_data = array(
                     "url" => $url,
                     "serial_number" => isset($voucher['serial_number'])?$voucher['serial_number']:"",
-                    "contact_name" => "",
+                    "contact_name" => $contact_name,
                     'first_name' => isset($voucher['firstname']) ? $voucher['firstname'] : "",
                     'last_name' => isset($voucher['lastname']) ? $voucher['lastname'] : "",
                     "loyalty_program" => isset($voucher['idcrm_programname']) ? $voucher['idcrm_programname'] : "",
