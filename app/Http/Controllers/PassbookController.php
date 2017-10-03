@@ -944,7 +944,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                     "venue" => isset($voucher['venue_name']) ? $voucher['venue_name'] : "",
                     "template" => isset($voucher['idcrm_emailtemplate'])?$voucher['idcrm_emailtemplate']:'mail_voucher'
                 );
-                $subject = isset($voucher['idcrm_relatedloyaltypromotion'])?$voucher['idcrm_relatedloyaltypromotion']:"Welcome to The Paulistas Clube";
+                $subject = "Welcome to The Paulistas Clube";
                 $title = "Alex at Uma Nota";
                 $type = "Alex at Uma Nota";
 
@@ -956,7 +956,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                 $pusback = array(
                     "idcrm_authenticationtoken" => $voucher['authenticationToken'],
                     "idcrm_barcode" => isset($voucher['idcrm_voucherid']) ? $voucher['idcrm_voucherid'] : "",
-                    "idcrm_passtypeid" => PASS_TYPE_IDENTIFIER,
+                    "idcrm_passtypeid" => PASS_TYPE_IDENTIFIER_VOUCHER,
                     "idcrm_serialnumber" => isset($voucher['idcrm_voucherid']) ? $voucher['idcrm_voucherid'] : "",
                 );
 
@@ -981,7 +981,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                     "venue" => isset($voucher['venue_name']) ? $voucher['venue_name'] : "",
                     "template" => 'resend_voucher'
                 );
-                $subject = "Welcome back to The Paulistas Clube";
+                $subject = isset($voucher['idcrm_promotionname'])?$voucher['idcrm_promotionname']:"Welcome back to The Paulistas Clube";
                 $title = "Alex at Uma Nota";
                 $type ='Alex at Uma Nota';
                 $mail_data_id = $this->store_mail_data($mail_data, $type);
