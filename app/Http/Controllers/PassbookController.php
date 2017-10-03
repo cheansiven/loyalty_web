@@ -888,6 +888,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                     break;
                 case 'idcrm_voucherstatus':
                     $voucher[$value['fieldName']] = isset($value['label']) ? $value['label'] : "";
+                    $voucher['idcrm_voucherstatus_value'] = isset($value['value']) ? $value['value'] : "";
                     break;
                 case FIELD_IDCRM_CREATE_ON:
                     $voucher[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
@@ -999,7 +1000,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
 
             return "Error Record Local Storage.";
 
-        }else if( $voucher['action'] == "Update" && (isset($voucher['idcrm_voucherstatus']) && $voucher['idcrm_voucherstatus'] == VOUCHER_STATUS_USED)){
+        }else if( $voucher['action'] == "Update" && (isset($voucher['idcrm_voucherstatus_value']) && $voucher['idcrm_voucherstatus_value'] == VOUCHER_STATUS_USED)){
             \Log::info("Contact ID:" . $voucher['idcrm_contactid']);
             $get_contact = Passes::where("contact_id", $voucher['idcrm_contactid'])->first();
             if ($get_contact) {
