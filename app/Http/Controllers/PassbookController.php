@@ -955,9 +955,9 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
 
                 $pusback = array(
                     "idcrm_authenticationtoken" => $voucher['authenticationToken'],
-                    "idcrm_barcode" => isset($voucher['cardId']) ? $voucher['cardId'] : "",
+                    "idcrm_barcode" => isset($voucher['idcrm_voucherid']) ? $voucher['idcrm_voucherid'] : "",
                     "idcrm_passtypeid" => PASS_TYPE_IDENTIFIER,
-                    "idcrm_serialnumber" => isset($voucher['cardId']) ? $voucher['cardId'] : "",
+                    "idcrm_serialnumber" => isset($voucher['idcrm_voucherid']) ? $voucher['idcrm_voucherid'] : "",
                 );
 
                 $this->dispatch(new PushLoyaltyCard(CRM_USER, CRM_PASSWORD, CRM_MODE, CRM_URL, CRM_ORG, $voucher['cardId'], IDCRM_ENTITY_VOUCHER_CARD, $pusback));
