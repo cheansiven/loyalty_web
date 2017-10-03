@@ -670,6 +670,10 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                     'date_of_birth' => isset($loyaltyData['birthdate'])?$loyaltyData['birthdate']:"",
                     'owningteam' => isset($loyaltyData['owningteam'])?$loyaltyData['owningteam']:"",
                     'voucher_data' => isset($loyaltyData['voucher_data'])?$loyaltyData['voucher_data']:serialize(array()),
+                    'idcrm_promotionname' => isset($loyaltyData['idcrm_promotionname'])?$loyaltyData['idcrm_promotionname']:"",
+                    'idcrm_expirationdate' => isset($loyaltyData['idcrm_expirationdate'])?$loyaltyData['idcrm_expirationdate']:"",
+                    'idcrm_description' => isset($loyaltyData['idcrm_description'])?$loyaltyData['idcrm_description']:"",
+                    'idcrm_voucherstatus' => isset($loyaltyData['idcrm_voucherstatus'])?$loyaltyData['idcrm_voucherstatus']:"",
                     'pass_type' => isset($loyaltyData['pass_type'])?$loyaltyData['pass_type']:1,
                 ]);
 
@@ -706,6 +710,11 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
         $pass->date_of_birth = isset($loyaltyData['birthdate'])?$loyaltyData['birthdate']:"";
         $pass->owningteam = isset($loyaltyData['owningteam'])?$loyaltyData['owningteam']:"";
         $pass->voucher_data = isset($loyaltyData['voucher_data'])?$loyaltyData['voucher_data']:serialize(array());
+        $pass->idcrm_promotionname = isset($loyaltyData['idcrm_promotionname'])?$loyaltyData['idcrm_promotionname']:"";
+        $pass->idcrm_expirationdate = isset($loyaltyData['idcrm_expirationdate'])?$loyaltyData['idcrm_expirationdate']:"";
+        $pass->idcrm_description = isset($loyaltyData['idcrm_description'])?$loyaltyData['idcrm_description']:"";
+        $pass->idcrm_voucherstatus = isset($loyaltyData['idcrm_voucherstatus'])?$loyaltyData['idcrm_voucherstatus']:"";
+
         $pass->pass_type = isset($loyaltyData['pass_type'])?$loyaltyData['pass_type']:1;
 
         $pass->pass_type_id =  isset($loyaltyData['pass_type_identifier'])?$loyaltyData['pass_type_identifier']:"";
@@ -736,11 +745,18 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
             $loyaltyData['idcrm_programname'] = $pass->loyalty_program;
             $loyaltyData['idcrm_totalpoints'] = $pass->total_points;
             $loyaltyData['serial_number'] = $pass->serial_number;
+            $loyaltyData['serial_number'] = $pass->serial_number;
             $loyaltyData['authenticationToken'] = $pass->authentication_token;
             $loyaltyData['contact_image'] = $pass->thumbnail;
             $loyaltyData['idcrm_contactid'] = $pass->contact_id;
             $loyaltyData['date_of_birth'] = $pass->date_of_birth;
             $loyaltyData['owningteam'] = $pass->owningteam;
+
+            $loyaltyData['idcrm_promotionname'] = $pass->idcrm_promotionname;
+            $loyaltyData['idcrm_expirationdate'] = $pass->idcrm_expirationdate;
+            $loyaltyData['idcrm_description'] = $pass->idcrm_description;
+            $loyaltyData['idcrm_voucherstatus'] = $pass->idcrm_voucherstatus;
+            $loyaltyData['pass_type'] = $pass->pass_type;
 
             if ($agent->is("iPhone") || $agent->isAndroidOS()) {
 
@@ -916,15 +932,6 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
         $voucher['pass_type'] = 2; // Serial number is the same as card Id
         $voucher['pass_type_identifier'] = PASS_TYPE_IDENTIFIER_VOUCHER; // Serial number is the same as card Id
 
-        $voucher_data = array(
-            'idcrm_promotionname' => isset($voucher['idcrm_promotionname'])?$voucher['idcrm_promotionname']:"",
-            'idcrm_expirationdate' => isset($voucher['idcrm_expirationdate'])?$voucher['idcrm_expirationdate']:"",
-            'idcrm_description' => isset($voucher['idcrm_description'])?$voucher['idcrm_description']:"",
-            'idcrm_voucherstatus' => isset($voucher['idcrm_voucherstatus'])?$voucher['idcrm_voucherstatus']:"",
-        );
-
-        $voucher['voucher_data'] = serialize($voucher_data);
-
         $contact_name = isset($voucher['firstname']) ? $voucher['firstname'] : "";
         $contact_name .= " ";
         $contact_name .= isset($voucher['lastname']) ? $voucher['lastname'] : "";
@@ -1007,11 +1014,10 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                 $result = $this->_store_card_data($voucher['action'], $voucher);
 
                 if ($result) {
-                    $devices = DB::table('passes')
-                        ->join('ios_device_registrations', 'ios_device_registrations.serial_number', '=', 'passes.serial_number')
-                        ->join('ios_devices', 'ios_devices.device_id', '=', 'ios_device_registrations.device_id')
-                        ->where('passes.contact_id', $voucher['idcrm_contactid'])
-                        ->select('ios_devices.*', 'passes.owningteam', "ios_device_registrations.device_type")
+                    $devices = DB::table('ios_device_registrations')
+                        ->join('ios_devices', 'ios_device_registrations.device_id', '=', 'ios_devices.device_id')
+                        ->where(['ios_device_registrations.serial_number'=> $voucher['serial_number'],'pass_type'=>'2'])
+                        ->select('ios_devices.*', 'passes.owningteam')
                         ->get();
 
                     foreach ($devices as $device) {
@@ -1056,24 +1062,27 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
             $loyaltyData['idcrm_contactid'] = $pass->contact_id;
             $loyaltyData['date_of_birth'] = $pass->date_of_birth;
             $loyaltyData['owningteam'] = $pass->owningteam;
-            $loyaltyData['voucher_data'] = $pass->voucher_data;
+            $loyaltyData['idcrm_promotionname'] = $pass->idcrm_promotionname;
+            $loyaltyData['idcrm_expirationdate'] = $pass->idcrm_expirationdate;
+            $loyaltyData['idcrm_description'] = $pass->idcrm_description;
+            $loyaltyData['idcrm_voucherstatus'] = $pass->idcrm_voucherstatus;
             $loyaltyData['pass_type'] = $pass->pass_type;
 
 
-//           if ($agent->is("iPhone") || $agent->isAndroidOS()) {
+           if ($agent->is("iPhone") || $agent->isAndroidOS()) {
 
                 //Immediately render pass
                 $this->_generate_voucher($loyaltyData);
 
-//            } else {
-//
-//                return view("passes.voucher", [
-//                    'qrcode' => $this->generate($pass->card_id),
-//                    'pass_data' => $pass
-//                ]);
-//
-//
-//            }
+            } else {
+
+                return view("passes.voucher", [
+                    'qrcode' => $this->generate($pass->card_id),
+                    'pass_data' => $pass
+                ]);
+
+
+            }
         } else {
             return response()->json(array(
                 'status' => 401
@@ -1087,7 +1096,6 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
     private function _generate_voucher( $loyaltyData )
     {
 
-        $voucher_data = (isset($loyaltyData['voucher_data']) and !empty($loyaltyData['voucher_data']))?unserialize($loyaltyData['voucher_data']):array();
         $image_path = resource_path('images');
 
         if (!file_exists(WWDR_FILE)) {
@@ -1132,7 +1140,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                 'primaryFields' => [
                     [
                         "key"=>"offer",
-                        "label"=> isset($voucher_data['idcrm_promotionname'])?$voucher_data['idcrm_promotionname']:"",
+                        "label"=> isset($loyaltyData['idcrm_promotionname'])?$loyaltyData['idcrm_promotionname']:"",
                         "value"=> "Promo",
                         "changeMessage"=>"Changed to %@"
                     ]
@@ -1141,14 +1149,14 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                     [
                         'key' => 'status',
                         'label' => 'Status',
-                        'value' => isset($voucher_data['idcrm_voucherstatus'])?$voucher_data['idcrm_voucherstatus']:"",
+                        'value' => isset($loyaltyData['idcrm_voucherstatus'])?$loyaltyData['idcrm_voucherstatus']:"",
                         'changeMessage' => "Changed to %@"
                     ],
                     [
 
                         'key' => 'expires',
                         'label' => 'Expires',
-                        'value' => !empty($voucher_data['idcrm_expirationdate']) ? date("d.m.Y h:i a", strtotime($voucher_data['idcrm_expirationdate'])) : "N/A",
+                        'value' => !empty($loyaltyData['idcrm_expirationdate']) ? date("d.m.Y h:i a", strtotime($loyaltyData['idcrm_expirationdate'])) : "N/A",
                         'changeMessage' => "Changed to %@"
                     ],
 
@@ -1165,7 +1173,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                     [
                         'key' => 'terms',
                         'label' => 'TERMS & CONDITIONS',
-                        'value' => isset($voucher_data['idcrm_description'])?$voucher_data['idcrm_description']:"",
+                        'value' => isset($loyaltyData['idcrm_description'])?$loyaltyData['idcrm_description']:"",
                         'changeMessage' => "Changed to %@"
                     ],
                     [
@@ -1577,11 +1585,10 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                         $result = $this->_store_card_data($action, $loyaltyData);
 
                         if ($result) {
-                            $devices = DB::table('passes')
-                                ->join('ios_device_registrations', 'ios_device_registrations.serial_number', '=', 'passes.serial_number')
-                                ->join('ios_devices', 'ios_devices.device_id', '=', 'ios_device_registrations.device_id')
-                                ->where('passes.contact_id', $loyaltyData['idcrm_contactid'])
-                                ->select('ios_devices.*', 'passes.owningteam', "ios_device_registrations.device_type")
+                            $devices = DB::table('ios_device_registrations')
+                                ->join('ios_devices', 'ios_device_registrations.device_id', '=', 'ios_devices.device_id')
+                                ->where(['ios_device_registrations.serial_number'=> $loyaltyData['serial_number'],'pass_type'=>'1'])
+                                ->select('ios_devices.*', 'passes.owningteam')
                                 ->get();
 
                             foreach ($devices as $device) {
@@ -1620,7 +1627,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                     if ($result) {
                         $devices = DB::table('ios_device_registrations')
                             ->join('ios_devices', 'ios_device_registrations.device_id', '=', 'ios_devices.device_id')
-                            ->where('ios_device_registrations.serial_number', $loyaltyData['serial_number'])
+                            ->where(['ios_device_registrations.serial_number'=> $loyaltyData['serial_number'],'pass_type'=>'1'])
                             ->select('ios_devices.*', 'passes.owningteam')
                             ->get();
 

@@ -25,9 +25,7 @@
 
 </head>
 <body>
-<?php
-    $voucher_data = (isset($pass_data['voucher_data']) and !empty($pass_data['voucher_data']))?unserialize($pass_data['voucher_data']):array();
-?>
+
 <div class="container text-center">
     <div class="flex-center position-ref full-height vertical-center" style="margin-top: 50px">
         <div class="content">
@@ -51,17 +49,33 @@
                                 <div class="passField" style="margin-top: 32px;margin-bottom: 15px;">
 
                                     <p class="text-left" style="font-size: 54px;margin: 0px;margin-bottom: -10px;color:#bc9b5d;" >Promo</p>
-                                    <label class="label lebel-size" style="color: #000 !important">{{ isset($voucher_data['idcrm_promotionname'])?$voucher_data['idcrm_promotionname']:"" }}</label>
+                                    <label class="label lebel-size" style="color: #000 !important">{{ isset($pass_data['idcrm_promotionname'])?$pass_data['idcrm_promotionname']:"" }}</label>
                                 </div>
                             </div>
 
                             <div class="text-left content">
-                                <div class="passField">
-                                    <label class="label lebel-size" style="font-weight: 400;">Expires</label><br/>
-                                    <label class="span" style="font-weight: 400;font-size: 12px;color:#bc9b5d;">
-                                        {{ !empty($voucher_data['idcrm_expirationdate']) ? date("d.m.Y h:i a", strtotime($voucher_data['idcrm_expirationdate'])) : "N/A" }}
-                                    </label>
-                                </div>
+                                <table width="100%">
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="passField">
+                                                <label class="label lebel-size" style="font-weight: 400;">Status</label><br/>
+                                                <label class="span" style="font-weight: 400;font-size: 12px;color:#bc9b5d;">
+                                                    {{ isset($pass_data['idcrm_voucherstatus']) ? $pass_data['idcrm_voucherstatus'] : "Active" }}
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="passField">
+                                                <label class="label lebel-size" style="font-weight: 400;">Expires</label><br/>
+                                                <label class="span" style="font-weight: 400;font-size: 12px;color:#bc9b5d;">
+                                                    {{ !empty($pass_data['idcrm_expirationdate']) ? date("d.m.Y h:i a", strtotime($pass_data['idcrm_expirationdate'])) : "N/A" }}
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+
                             </div>
                             <table class="content" style="margin-top: 30px!important;width: 100%;">
 
