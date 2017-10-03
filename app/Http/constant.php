@@ -28,6 +28,7 @@ define("PASS_TYPE_IDENTIFIER", "pass.com.idcrmltd.umanota");
 define("P12_VOUCHER_FILE",BASE_CERTIFICATE_PATH.'pass.com.idcrmltd.umanotavoucher.p12');
 define("P12_PASSWORD_VOUCHER",'1111');
 define("PASS_TYPE_IDENTIFIER_VOUCHER", "pass.come.idcrmltd.umanotavoucher");
+define("PUSH_NOTIFICATION_CERT_VOUCHER", BASE_CERTIFICATE_PATH."pushvoucherumanota.pem");
 
 define("TEAM_IDENTIFIER", "7Y4PN8538L");
 
@@ -113,6 +114,7 @@ define('SEND_VOUCHER_RESEND', 527210002);
 
 define('TYPE_OF_VOUCHER_PROMOTION', 527210001);
 define('VOUCHER_STATUS_OK', 527210000);
+define('VOUCHER_STATUS_USED', 527210001);
 
 
 define('IDCRM_SEND_PASSBOOK', "idcrm_sendpassbook");

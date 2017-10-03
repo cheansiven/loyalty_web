@@ -96,25 +96,25 @@ class PassbookController extends Controller
     }
 
 
-    public function push_notification($push_token, $owningteam)
+    public function push_notification($push_token, $owningteam, $card_type = '')
     {
         $deviceToken = "" . $push_token . "";
 
         \Log::info("Push Notification for owningteam:" . $owningteam);
 
-  //      if ($owningteam == LOYALTY_PROGRAM_TEAM_LYN) {
+        if($card_type =='voucher'){
+            $passphrase = P12_PASSWORD_VOUCHER;
+
+            //Ck.pem half path of server
+            $ck_pem_path = PUSH_NOTIFICATION_CERT_VOUCHER;
+        }else{
             //$passphrase=When you generate ck.pem used inside
             $passphrase = P12_PASSWORD;
 
             //Ck.pem half path of server
             $ck_pem_path = PUSH_NOTIFICATION_CERT;
-//        } else {
-//            //$passphrase=When you generate ck.pem used inside
-//            $passphrase = P12_PASSWORD_CLASSIFIED;
-//
-//            //Ck.pem half path of server
-//            $ck_pem_path = PUSH_NOTIFICATION_CERT_CLASSIFIED;
-//        }
+        }
+
 
         //When your application live then change development to production
         $development = "production";
@@ -999,6 +999,31 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
 
             return "Error Record Local Storage.";
 
+        }else if( $voucher['action'] == "Update" && (isset($voucher['idcrm_voucherstatus']) && $voucher['idcrm_voucherstatus'] == VOUCHER_STATUS_USED)){
+            $get_contact = Passes::where("contact_id", $voucher['idcrm_contactid'])->first();
+            if ($get_contact) {
+                $result = $this->_store_card_data($voucher['action'], $voucher);
+
+                if ($result) {
+                    $devices = DB::table('passes')
+                        ->join('ios_device_registrations', 'ios_device_registrations.serial_number', '=', 'passes.serial_number')
+                        ->join('ios_devices', 'ios_devices.device_id', '=', 'ios_device_registrations.device_id')
+                        ->where('passes.contact_id', $voucher['idcrm_contactid'])
+                        ->select('ios_devices.*', 'passes.owningteam', "ios_device_registrations.device_type")
+                        ->get();
+
+                    foreach ($devices as $device) {
+                        \Log::info("Push Notification:" . $device->push_token);
+                        \Log::info("Push Owningteam:" . $device->owningteam);
+                        \Log::info("Device Type :" . $device->device_type);
+
+                        $this->push_notification($device->push_token, $device->owningteam, 'voucher');
+
+                    }
+                    return "Success push notification to update status on card with used";
+                }
+                return "Not Found Device to update";
+            }
         }
 
         return ;
