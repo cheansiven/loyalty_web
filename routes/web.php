@@ -104,7 +104,7 @@ Route::get("test_template",function(){
 
     Route::get("execute","ContactController@test_connection1");
 
-    Route::get("push_notification_test/{push_token}/{owningteam}","PassbookController@push_notification");
+    Route::get("push_notification_test/{push_token}/{owningteam}/{type}","PassbookController@push_notification");
     Route::get("test_connection","ContactController@test_connection");
     Route::get("test_mail","ContactController@test_mail");
 //});
