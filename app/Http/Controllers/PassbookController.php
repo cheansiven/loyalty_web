@@ -1012,10 +1012,11 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                 $result = $this->_store_card_data($voucher['action'], $voucher);
 
                 if ($result) {
-                    $devices = DB::table('ios_device_registrations')
-                        ->join('ios_devices', 'ios_device_registrations.device_id', '=', 'ios_devices.device_id')
-                        ->where(['ios_device_registrations.serial_number'=> $voucher['serial_number'],'pass_type'=>'2'])
-                        ->select('ios_devices.*', 'passes.owningteam')
+                    $devices = DB::table('passes')
+                        ->join('ios_device_registrations', 'ios_device_registrations.serial_number', '=', 'passes.serial_number')
+                        ->join('ios_devices', 'ios_devices.device_id', '=', 'ios_device_registrations.device_id')
+                        ->where(['passes.serial_number' => $voucher['serial_number'], 'passes.pass_type'=>'2'])
+                        ->select('ios_devices.*', 'passes.owningteam', "ios_device_registrations.device_type")
                         ->get();
 
                     foreach ($devices as $device) {
@@ -1583,10 +1584,12 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                         $result = $this->_store_card_data($action, $loyaltyData);
 
                         if ($result) {
-                            $devices = DB::table('ios_device_registrations')
-                                ->join('ios_devices', 'ios_device_registrations.device_id', '=', 'ios_devices.device_id')
-                                ->where(['ios_device_registrations.serial_number'=> $loyaltyData['serial_number'],'pass_type'=>'1'])
-                                ->select('ios_devices.*', 'passes.owningteam')
+
+                            $devices = DB::table('passes')
+                                ->join('ios_device_registrations', 'ios_device_registrations.serial_number', '=', 'passes.serial_number')
+                                ->join('ios_devices', 'ios_devices.device_id', '=', 'ios_device_registrations.device_id')
+                                ->where(['passes.serial_number' => $loyaltyData['serial_number'], 'passes.pass_type'=>'1'])
+                                ->select('ios_devices.*', 'passes.owningteam', "ios_device_registrations.device_type")
                                 ->get();
 
                             foreach ($devices as $device) {
@@ -1623,10 +1626,11 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                     $result = $this->_store_card_data($action, $loyaltyData);
 
                     if ($result) {
-                        $devices = DB::table('ios_device_registrations')
-                            ->join('ios_devices', 'ios_device_registrations.device_id', '=', 'ios_devices.device_id')
-                            ->where(['ios_device_registrations.serial_number'=> $loyaltyData['serial_number'],'pass_type'=>'1'])
-                            ->select('ios_devices.*', 'passes.owningteam')
+                        $devices = DB::table('passes')
+                            ->join('ios_device_registrations', 'ios_device_registrations.serial_number', '=', 'passes.serial_number')
+                            ->join('ios_devices', 'ios_devices.device_id', '=', 'ios_device_registrations.device_id')
+                            ->where(['passes.serial_number' => $loyaltyData['serial_number'], 'passes.pass_type'=>'1'])
+                            ->select('ios_devices.*', 'passes.owningteam', "ios_device_registrations.device_type")
                             ->get();
 
                         foreach ($devices as $device) {
