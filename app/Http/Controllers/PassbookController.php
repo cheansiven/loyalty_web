@@ -329,12 +329,20 @@ class PassbookController extends Controller
             $loyaltyData['authenticationToken'] = $pass->authentication_token;
             $loyaltyData['date_of_birth'] = $pass->date_of_birth;
             $loyaltyData['owningteam'] = $pass->owningteam;
+            $loyaltyData['idcrm_promotionname'] = $pass->idcrm_promotionname;
+            $loyaltyData['idcrm_expirationdate'] = $pass->idcrm_expirationdate;
+            $loyaltyData['idcrm_description'] = $pass->idcrm_description;
+            $loyaltyData['idcrm_voucherstatus'] = $pass->idcrm_voucherstatus;
+            $loyaltyData['pass_type'] = $pass->pass_type;
             $loyaltyData['action'] = "update";
 
-            //Immediately render pass
-            $this->generate_pass_gcrc($loyaltyData);
+            if($loyaltyData['pass_type'] == '2'){
+                $this->_generate_voucher($loyaltyData);
+            }else{
+                //Immediately render pass
+                $this->generate_pass_gcrc($loyaltyData);
+            }
 
-            //$this->generate_card($loyaltyData);
         } else {
             return response()->json(array(
                 'status' => 401
