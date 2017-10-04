@@ -73,7 +73,7 @@
                 </div>
             </div>
             <header id="header" class="info" style="text-align: justify">
-                <h4>Welcome to The Paulistas Clube</h4>
+                <h4>Welcome to a community of Paulistas in Hong Kong</h4>
             </header>
             <div class="error_form">
                 @if (count($errors) > 0)
