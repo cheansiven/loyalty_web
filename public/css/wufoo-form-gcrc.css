@@ -351,6 +351,7 @@ input.medium, select.medium {
 
 input.large, select.large {
     width: 100%;
+    outline-color: #BC9B5D;
 }
 
 .msie[class] select.ieSelectFix {
