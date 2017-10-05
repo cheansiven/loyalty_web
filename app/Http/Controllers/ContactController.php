@@ -141,6 +141,7 @@ class ContactController extends Controller
             "original_name" => session()->has("original_name_gcrc") ? session("original_name_gcrc") : "",
             "contact_id" => session()->has("gcrc_contact_id") ? session("gcrc_contact_id") : "",
             "card_id" => session()->has("gcrc_card_id") ? session("gcrc_card_id") : "",
+            "city" => session()->has("city") ? session("city") : "",
 
         );
 
@@ -193,6 +194,7 @@ class ContactController extends Controller
         if (session()->has('gcrc_contact_id')) session()->forget("gcrc_contact_id");
         if (session()->has('address')) session()->forget("address");
         if (session()->has('txt_comment')) session()->forget("txt_comment");
+        if (session()->has('city')) session()->forget("city");
 
     }
 
@@ -285,7 +287,8 @@ class ContactController extends Controller
             "country_gcrc" => $request->country,
             "language_gcrc" => $request->language,
             "comment" =>$request->txt_comment,
-            "address" =>$request->address
+            "address" =>$request->address,
+            "city" =>$request->city,
         ]);
 
 
@@ -308,6 +311,7 @@ class ContactController extends Controller
         $contact_data["language"]=$request->language;
         $contact_data["address"]= $request->address;
         $contact_data["txt_comment"]= $request->txt_comment;
+        $contact_data["city"]= $request->city;
 
         return $contact_data;
     }

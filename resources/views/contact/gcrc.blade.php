@@ -234,6 +234,19 @@
                     <div class="col-sm-6 col-md-6 col-lg-6">
                         <ul>
                             <li id="foli4" class="notranslate">
+                                <label class="desc" for="city">City</label>
+                                <div>
+                                    <input id="city" class="field text large" name="city" tabindex="4"  type="tel" maxlength="255" value="{{ old("city") }}"/>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <ul>
+                            <li id="foli4" class="notranslate">
                                 <label class="comment" for="comment">Comments</label>
                                 <div>
                                     <textarea name="txt_comment" class="field textarea medium" id="comment">{{ old("txt_comment") }}</textarea>

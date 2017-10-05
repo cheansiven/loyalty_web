@@ -355,7 +355,7 @@
                     <tr>
 
                         <td align="center" valign="top" cellpadding="0" cellspacing="0">
-                            <img class="logo" src="https://umanota.haricrm.com/image/gcrc/Paulistas_Clube_Header.png"/>
+                            <img src="https://umanota.haricrm.com/image/logo@3x.png" style="margin-bottom: 20px!important;height: 50px!important;margin-top: 10px!important;"/>
                         </td>
 
                     </tr>
@@ -365,7 +365,7 @@
                         <td>
 
                             <div class="article" style="position: relative;background:#fff;line-height: 30px;padding-top: 10px;padding-left: 10px;padding-right: 10px;color: #000;">
-                                <p>Dear {{ $contact_name }},</p>
+                                <p><b>Olá  {{ $contact_name }},</b></p>
                                 <p>As requested, please download and re-install your loyalty card here:</p>
                                 <p>
                                   Program: {{ $loyalty_program }}!

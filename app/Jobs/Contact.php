@@ -47,6 +47,7 @@ class Contact implements ShouldQueue
         $contact->address1_line1 = isset($request["address"]) ? $request["address"] : "";
         $contact->description = isset($request["txt_comment"]) ? $request["txt_comment"] : "";
         $contact->transactioncurrencyid = $connection->entity("transactioncurrency", HK_CURRENCY);
+        $contact->address1_city = isset($request["city"]) ? $request["city"] : "";
         $contactId = $contact->create();
 
         if ($contactId) {

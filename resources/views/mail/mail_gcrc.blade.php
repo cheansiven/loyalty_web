@@ -349,7 +349,7 @@
                     <tr>
 
                         <td align="center" valign="top" cellpadding="0" cellspacing="0">
-                            <img class="logo" src="https://umanota.haricrm.com/image/gcrc/Paulistas_Clube_Header.png"/>
+                            <img src="https://umanota.haricrm.com/image/logo@3x.png" style="margin-bottom: 20px!important;height: 50px!important;margin-top: 10px!important;"/>
 
                         </td>
 
@@ -361,18 +361,14 @@
 
                             <div class="article" style="position: relative;background:#fff;line-height: 30px;padding-top: 10px;padding-left: 10px;padding-right: 10px;color: #000;">
 
-                                    <p>Dear {{ $contact_name }},</p>
+                                    <p><b>Welcome to The Paulistas Clube</b></p>
                                     <p>
-                                      Welcome to {{ $loyalty_program }}!
-                                    </p>
-                                    <p>
-                                      Through a shared love of Brazilian Japanese street food and cocktails we now have a family of Paulistas (that’s you!) here in Hong Kong. We love seeing you at Uma Nota and want to give you reasons to come see us more.
+                                        Through a shared love of Brazilian Japanese street food and cocktails we now have a family of Paulistas (that’s you!) here in Hong Kong. We love seeing you at Uma Nota and want to give you reasons to come see us more.
                                     </p>
                                     <p>How it works?</p>
-                                    <p>Simply for joining The Paulistas Clube you’ll enjoy a complimentary drink on us the next time we see you. We value every dollar you spend with us so each time you visit Uma Nota from here on in you’ll be a step closer to receiving a token of our appreciation and will enjoy exclusive benefits (either a round of drinks, a preview of new dishes, priority tables or access to special dinners & events).</p>
-                                    <p>
-                                      To download your card, please click on the link below and add it into your wallet. If you don't use an IPhone, the card will be displayed in html page.
-                                    </p>
+                                    <p>We value every dollar you spend with us so each time you visit Uma Nota from here on in you’ll be a step closer to receiving a token of our appreciation and will enjoy exclusive benefits and Uma Nota goodies. </p>
+                                    <p>By joining The Paulistas Clube you’ll enjoy a complimentary drink on us the next time we see you.</p>
+                                    <p>To download your card, please click on the link below and add it into your wallet. If you don't use an IPhone, the card will be displayed in html page.</p>
                                     <p><a href="{{ $url }}" target="_blank" style="color:#BC9B5D">Click here</a></p>
                                     <p>Obrigado and see you soon!</p><br/>
                                     <p><img src="https://umanota.haricrm.com/image/gcrc/Paulistas_Clube_Email_Sig.png" /></p>

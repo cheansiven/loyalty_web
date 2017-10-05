@@ -13,7 +13,7 @@
 //Route::group(array('middleware' => 'forceSSL'), function() {
 Route::get("test_template",function(){
 
-    return view("mail.mail_gcrc",['serial_number'=>"",'contact_name'=>'test',"url"=>'a',"venue"=>"1",'mail_data_id'=>1]);
+    return view("mail.reaching_20000_spend",['serial_number'=>"",'contact_name'=>'test',"url"=>'a',"venue"=>"1",'mail_data_id'=>1]);
 });
 //    Route::get('/', function () {
 //        return view('welcome');

@@ -341,7 +341,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" class="container">
                     <tr>
                         <td align="center" valign="top" cellpadding="0" cellspacing="0">
-                            <img class="logo" src="https://umanota.haricrm.com/image/gcrc/Paulistas_Clube_Header.png"/>
+                            <img src="https://umanota.haricrm.com/image/logo@3x.png" style="margin-bottom: 20px!important;height: 50px!important;margin-top: 10px!important;"/>
                         </td>
                     </tr>
                     <tr>
@@ -351,7 +351,7 @@
                                     $_date = date('d/m/Y', strtotime($create_spending_date));
                                     $_time = date('h:i:s a', strtotime($create_spending_date));
                                 ?>
-                                <p>Dear {{ $contact_name }},</p>
+                                <p><b>Olá  {{ $contact_name }},</b></p>
                                 <p>It was great to see you at <b>{{ $venue }}</b>; {{ $_date.' '. $_time }}</p>
                                 <p>You spent {{ $transaction_amount }}.</p>
                                 <p>Now your current points are {{ intval($current_points) }}</p><br/>

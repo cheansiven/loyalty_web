@@ -50,6 +50,7 @@ class ContactAndCard implements ShouldQueue
         $contact->address1_line1 = isset($all_data["address"]) ? $all_data["address"] : "";
         $contact->description = isset($all_data["txt_comment"]) ? $all_data["txt_comment"] : "";
         $contact->transactioncurrencyid = $connection->entity("transactioncurrency", HK_CURRENCY);
+        $contact->address1_city = isset($request["city"]) ? $request["city"] : "";
         $contactId = $contact->update();
 
         if($contactId)

@@ -351,7 +351,7 @@
                     <tr>
 
                         <td align="center" valign="top" cellpadding="0" cellspacing="0">
-                            <img class="logo" src="https://umanota.haricrm.com/image/gcrc/Paulistas_Clube_Header.png"/>
+                            <img  src="https://umanota.haricrm.com/image/logo@3x.png" style="margin-bottom: 20px!important;height: 50px!important;margin-top: 10px!important;"/>
 
                         </td>
 
