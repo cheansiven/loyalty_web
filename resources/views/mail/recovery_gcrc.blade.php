@@ -368,7 +368,7 @@
                                 <p><b>Olá  {{ $contact_name }},</b></p>
                                 <p>As requested, please download and re-install your loyalty card here:</p>
                                 <p>
-                                  Program: {{ $loyalty_program }}!
+                                  Program: <b>{{ $loyalty_program }}!</b>
                                 </p>
                                 <p>
                                   At venue: {{ $venue }}!
