@@ -68,7 +68,7 @@
                                             <div class="passField">
                                                 <label class="label lebel-size" style="font-weight: 400;"><b>EXPIRED DATE</b></label><br/>
                                                 <label class="span" style="font-weight: 300;color:#bc9b5d;">
-                                                    {{ !empty($pass_data['idcrm_expirationdate']) ? date("d.m.Y h:i a", strtotime($pass_data['idcrm_expirationdate'])) : "N/A" }}
+                                                    {{ !empty($pass_data['idcrm_expirationdate']) ? date("d.m.Y", strtotime($pass_data['idcrm_expirationdate'])) : "N/A" }}
                                                 </label>
                                             </div>
                                         </td>

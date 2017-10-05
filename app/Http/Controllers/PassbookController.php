@@ -1167,7 +1167,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
 
                         'key' => 'expires',
                         'label' => 'Expires Date',
-                        'value' => !empty($loyaltyData['idcrm_expirationdate']) ? date("d.m.Y h:i a", strtotime($loyaltyData['idcrm_expirationdate'])) : "N/A",
+                        'value' => !empty($loyaltyData['idcrm_expirationdate']) ? date("d.m.Y", strtotime($loyaltyData['idcrm_expirationdate'])) : "N/A",
                         'changeMessage' => "Changed to %@"
                     ],
 
