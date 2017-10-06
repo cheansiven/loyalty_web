@@ -334,7 +334,7 @@
                                     <td valign="top">
 
                                         <div style="text-align:center;color:#000;">
-                                            Having trouble viewing this email? <a href="{{ $url }}" target="_blank" style="color:#BC9B5D">
+                                            Having trouble viewing this email? <a href="https://umanota.haricrm.com/welcome-mail/{{ $serial_number }}/{{ $mail_data_id }}" target="_blank" style="color:#BC9B5D">
                                                 click here</a>
                                             to view in your browser
                                         </div>
