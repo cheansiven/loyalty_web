@@ -49,7 +49,7 @@ class ContactController extends Controller
         $connection = $this->_getConnection("connection.txt");
 
         $card = $connection->entity('idcrm_loyaltycard', '46b1f359-c9ac-e711-8155-e0071b67cb41');
-        $card->idcrm_viptreament = VALUE_IDCRM_VIP_TREAMENT_YES;
+        $card->idcrm_viptreatment = VALUE_IDCRM_VIP_TREAMENT_YES;
         $card->idcrm_lastuseddate = time() + date("HKT");
 
         dd($card->update());
