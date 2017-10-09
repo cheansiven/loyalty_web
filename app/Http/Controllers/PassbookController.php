@@ -1621,7 +1621,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                     $this->dispatch(new SendMail($loyaltyData['emailaddress1'], "info@uma-nota.com", $subject, $title, $mail_data));
 
                     $pusback = array(
-                        "idcrm_viptreament" => VALUE_IDCRM_VIP_TREAMENT_YES,
+                        "idcrm_viptreament" => (int) VALUE_IDCRM_VIP_TREAMENT_YES,
                         "idcrm_lastuseddate" => time() + date("HKT")
                     );
 
