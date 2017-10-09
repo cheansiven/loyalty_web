@@ -18,7 +18,6 @@ use App\Jobs\ContactAndCard;
 use App\Jobs\Card;
 use App\Http\Service\ClientService;
 use Illuminate\Support\Facades\Mail;
-use App\Jobs\PushLoyaltyCard;
 class ContactController extends Controller
 {
 
@@ -47,15 +46,13 @@ class ContactController extends Controller
     public function test_mail()
     {
 
-        $pusback = array(
-            "idcrm_pushstatus" => PUSH_STATUS_KO,
-            "idcrm_viptreatment" => 527210000,
-            "idcrm_lastuseddate" => time() + date("HKT")
-        );
+        $connection = $this->_getConnection("connection.txt");
 
-        $this->dispatch(new PushLoyaltyCard(CRM_USER, CRM_PASSWORD, CRM_MODE, CRM_URL, CRM_ORG, '46b1f359-c9ac-e711-8155-e0071b67cb41', "idcrm_loyaltycard", $pusback));
+        $card = $connection->entity('idcrm_loyaltycard', '46b1f359-c9ac-e711-8155-e0071b67cb41');
+        $card->idcrm_viptreament = VALUE_IDCRM_VIP_TREAMENT_YES;
+        $card->idcrm_lastuseddate = time() + date("HKT");
 
-
+        dd($card->update());
 
 
 
