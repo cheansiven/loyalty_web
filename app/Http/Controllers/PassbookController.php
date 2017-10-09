@@ -1620,12 +1620,12 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                     $title = "Alex at Uma Nota";
                     $this->dispatch(new SendMail($loyaltyData['emailaddress1'], "info@uma-nota.com", $subject, $title, $mail_data));
 
-                    $pusback = array(
+                    $push_back_treatment = array(
                         "idcrm_viptreament" => (int) VALUE_IDCRM_VIP_TREAMENT_YES,
                         "idcrm_lastuseddate" => time() + date("HKT")
                     );
 
-                    $this->dispatch(new PushLoyaltyCard(CRM_USER, CRM_PASSWORD, CRM_MODE, CRM_URL, CRM_ORG, $loyaltyData['cardId'], "idcrm_loyaltycard", $pusback));
+                    $this->dispatch(new PushLoyaltyCard(CRM_USER, CRM_PASSWORD, CRM_MODE, CRM_URL, CRM_ORG, $loyaltyData['cardId'], "idcrm_loyaltycard", $push_back_treatment));
 
 
                 }
