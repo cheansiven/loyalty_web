@@ -347,10 +347,6 @@
                     <tr>
                         <td>
                             <div class="article" style="position: relative;background:#ffffff;line-height: 30px;padding-top: 10px;padding-left: 10px;padding-right: 10px;color: #000;">
-                                <?php
-                                $_date = date('d/m/Y', strtotime($create_spending_date));
-                                $_time = date('h:i:s a', strtotime($create_spending_date));
-                                ?>
                                 <p><b>Olá  {{ $contact_name }},</b></p>
                                 <p>We’ve noticed you’ve been splashing some cash with us! To say thank you from the team, now you have a <b>VIP Treatment!</b></p>
                                 <p>This ongoing offer relates to:</p>

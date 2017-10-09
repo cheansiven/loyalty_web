@@ -1583,7 +1583,6 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                 unset($loyaltyData["contact_image"]);
             }
 
-
             $loyaltyData["cardId"] = isset($data['message'][1]['PrimaryEntityId']) ? $data['message'][1]['PrimaryEntityId'] : "";
             $loyaltyData['authenticationToken'] = PASS_AUTH_TOKEN;
             $loyaltyData['action'] = $data['message'][0]['Action'];
@@ -1598,10 +1597,11 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
 
             if ((isset($action) && $action == "Update") && (isset($loyaltyData["idcrm_pushstatus"]))) {
                 if ($loyaltyData['idcrm_pushstatus'] == PUSH_STATUS_UPDATE_CARD) {
+
                 \Log::info("Action: Push Status Update Card");
 
-                if((isset($loyaltyData['idcrm_totalspendings']) and $loyaltyData['idcrm_totalspendings'] >=20000) and(
-                isset($loyaltyData[FIELD_IDCRM_VIP_TREAMENT]) and $loyaltyData[FIELD_IDCRM_VIP_TREAMENT] != VALUE_IDCRM_VIP_TREAMENT_YES)){
+                if((isset($loyaltyData['idcrm_totalspendings']) and (double) $loyaltyData['idcrm_totalspendings'] >= (double) 20000) and(
+                isset($loyaltyData[FIELD_IDCRM_VIP_TREAMENT]) and  $loyaltyData[FIELD_IDCRM_VIP_TREAMENT] != VALUE_IDCRM_VIP_TREAMENT_YES)){
                     $mail_data = array(
                         "url" => "https://umanota.haricrm.com/download_card/" . $loyaltyData['serial_number'],
                         "serial_number" => $loyaltyData['serial_number'],
@@ -1613,7 +1613,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                         "current_points" => $loyaltyData['idcrm_totalpoints'],
                         "template" => 'mail_vip_treatment'
                     );
-                    $type = "viazul";
+                    $type = "umanota";
                     $mail_data_id = $this->store_mail_data($mail_data, $type);
                     $mail_data['mail_data_id'] = $mail_data_id;
                     $subject = "VIP Treatment";
