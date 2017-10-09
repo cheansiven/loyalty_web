@@ -49,7 +49,7 @@ class ContactController extends Controller
 
         $pusback = array(
             "idcrm_pushstatus" => PUSH_STATUS_KO,
-            "idcrm_viptreament" => 527210000,
+            "idcrm_viptreatment" => 527210000,
             "idcrm_lastuseddate" => time() + date("HKT")
         );
 
