@@ -350,7 +350,6 @@
                                 <p><b>Olá  {{ $contact_name }},</b></p>
                                 <p>We’ve noticed you’ve been splashing some cash with us! To say thank you from the team, now you have a <b>VIP Treatment!</b></p>
                                 <p>This ongoing offer relates to:</p>
-                                <br/>
                                 <p>1. Priority waitlist placement when you message +852 6053 1193 (min.1 hour before arrival)</p>
                                 <p>2. Early bird access/ priority on event bookings communicated to the member directly via email or verbally</p>
                                 <p>3. Exclusive access to future events/ collaborations at Uma Nota, communicated to the member directly via email or verbally. Each person may only apply for one e-loyalty card. Members must be 18 years and over.</p>
