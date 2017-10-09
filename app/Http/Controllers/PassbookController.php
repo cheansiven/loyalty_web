@@ -1410,7 +1410,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
             $full_name .= isset($spending_data['lastname']) ? $spending_data['lastname'] : "";
 
 
-            if ($spending_data['idcrm_typeoftransaction'] != SPEDING_TYPE_PROMOTION) {
+            if ($spending_data['idcrm_typeoftransaction'] != SPEDING_TYPE_CREDIT) {
                 return "speading with out send mail";
             }
             $template = "transaction_gcrc";
@@ -1559,6 +1559,11 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                     case FIELD_IDCRM_CREATE_ON:
                         $loyaltyData[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
                         break;
+
+                    case FIELD_IDCRM_TOTAL_SPENDING:
+                        $loyaltyData[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
+                        break;
+
                     default:
                         break;
                 }
@@ -1590,7 +1595,40 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
 
             if ((isset($action) && $action == "Update") && (isset($loyaltyData["idcrm_pushstatus"]))) {
                 if ($loyaltyData['idcrm_pushstatus'] == PUSH_STATUS_UPDATE_CARD) {
-                    \Log::info("Action: Push Status Update Card");
+                \Log::info("Action: Push Status Update Card");
+
+                if((isset($loyaltyData['idcrm_totalspendings']) and $loyaltyData['idcrm_totalspendings'] >=20000) and(
+                isset($loyaltyData[FIELD_IDCRM_VIP_TREAMENT]) and $loyaltyData[FIELD_IDCRM_VIP_TREAMENT] == VALUE_IDCRM_VIP_TREAMENT_NO)){
+                    $mail_data = array(
+                        "url" => "https://umanota.haricrm.com/download_card/" . $loyaltyData['serial_number'],
+                        "serial_number" => $loyaltyData['serial_number'],
+                        "contact_name" => $full_name,
+                        'first_name' => isset($loyaltyData['firstname']) ? $loyaltyData['firstname'] : "",
+                        'last_name' => isset($loyaltyData['lastname']) ? $loyaltyData['lastname'] : "",
+                        "loyalty_program" => isset($loyaltyData['idcrm_programname']) ? $loyaltyData['idcrm_programname'] : "",
+                        "venue" => isset($loyaltyData['venue_name']) ? $loyaltyData['venue_name'] : "",
+                        "current_points" => $loyaltyData['idcrm_totalpoints'],
+                        "template" => 'mail_vip_treatment'
+                    );
+                    $type = "viazul";
+                    $mail_data_id = $this->store_mail_data($mail_data, $type);
+                    $mail_data['mail_data_id'] = $mail_data_id;
+                    $subject = "VIP Treatment";
+                    $title = "Alex at Uma Nota";
+                    $this->dispatch(new SendMail($loyaltyData['emailaddress1'], "info@uma-nota.com", $subject, $title, $mail_data));
+
+                    $pusback = array(
+                        "idcrm_viptreament" => VALUE_IDCRM_VIP_TREAMENT_YES,
+                        "idcrm_lastuseddate" => time() + date("HKT")
+                    );
+
+                    $this->dispatch(new PushLoyaltyCard(CRM_USER, CRM_PASSWORD, CRM_MODE, CRM_URL, CRM_ORG, $loyaltyData['cardId'], "idcrm_loyaltycard", $pusback));
+
+
+                }
+
+
+
                     $get_contact = Passes::where("contact_id", $loyaltyData['idcrm_contactid'])->first();
                     if ($get_contact) {
                         $result = $this->_store_card_data($action, $loyaltyData);

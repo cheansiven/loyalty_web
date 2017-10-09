@@ -77,6 +77,10 @@ define('ENTITIES_IDCRM_VENUE_OF_ORIGIN', 'idcrm_venueoforigin');
 define('ENTITIES_IDCRM_CONTACT', 'idcrm_contact');
 define('ENTITIES_CONTACT_ANNOTATION', 'contact_annotation');
 define('FIELD_IDCRM_PUSH_STATUS', 'idcrm_pushstatus');
+define('FIELD_IDCRM_TOTAL_SPENDING', 'idcrm_totalspendings');
+define('FIELD_IDCRM_VIP_TREAMENT', 'idcrm_viptreament');
+define('VALUE_IDCRM_VIP_TREAMENT_YES', 527210001);
+define('VALUE_IDCRM_VIP_TREAMENT_NO', 527210000);
 
 // CRM Loyalty Card status
 define('PUSH_STATUS_OK', 527210000);
