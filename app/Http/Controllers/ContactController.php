@@ -372,7 +372,7 @@ class ContactController extends Controller
 
         $connection_path = getcwd();
         $connection_path = str_replace("public", "", $connection_path);
-        $connection_path = (env("APP_ENV") == 'local') ? $connection_path . "resources/connection/".$connection_name: "/var/www/classified/viazul_loyalty_web/resources/connection/".$connection_name;
+        $connection_path = (env("APP_ENV") == 'local') ? $connection_path . "resources/connection/".$connection_name: "/var/www/umanota_loyalty_web/resources/connection/".$connection_name;
         $connection = file_get_contents($connection_path);
         $connection = unserialize($connection);
         return $connection;
