@@ -1563,7 +1563,9 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                     case FIELD_IDCRM_TOTAL_SPENDING:
                         $loyaltyData[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
                         break;
-
+                    case FIELD_IDCRM_VIP_TREAMENT:
+                        $loyaltyData[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
+                        break;
                     default:
                         break;
                 }
@@ -1580,6 +1582,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
             } else {
                 unset($loyaltyData["contact_image"]);
             }
+
 
             $loyaltyData["cardId"] = isset($data['message'][1]['PrimaryEntityId']) ? $data['message'][1]['PrimaryEntityId'] : "";
             $loyaltyData['authenticationToken'] = PASS_AUTH_TOKEN;
@@ -1598,7 +1601,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                 \Log::info("Action: Push Status Update Card");
 
                 if((isset($loyaltyData['idcrm_totalspendings']) and $loyaltyData['idcrm_totalspendings'] >=20000) and(
-                isset($loyaltyData[FIELD_IDCRM_VIP_TREAMENT]) and $loyaltyData[FIELD_IDCRM_VIP_TREAMENT] == VALUE_IDCRM_VIP_TREAMENT_NO)){
+                isset($loyaltyData[FIELD_IDCRM_VIP_TREAMENT]) and $loyaltyData[FIELD_IDCRM_VIP_TREAMENT] != VALUE_IDCRM_VIP_TREAMENT_YES)){
                     $mail_data = array(
                         "url" => "https://umanota.haricrm.com/download_card/" . $loyaltyData['serial_number'],
                         "serial_number" => $loyaltyData['serial_number'],
