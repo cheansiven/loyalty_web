@@ -15,9 +15,9 @@ class VerifyCsrfToken extends BaseVerifier
        "webhook",
         "v1/*",
         "pass",
-        "webhook-contact",
         "api/v1/push",
         'webhook-delete-card',
         'webhook-create-voucher',
+        'webhook-transaction'
     ];
 }
