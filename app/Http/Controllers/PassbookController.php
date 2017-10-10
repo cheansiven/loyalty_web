@@ -1429,7 +1429,7 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
                 "venue" => isset($spending_data['venue_name']) ? $spending_data['venue_name'] : "",
                 "current_points" => isset($spending_data['idcrm_totalpoints']) ? $spending_data['idcrm_totalpoints'] : 0,
                 "create_spending_date" => date("m/d/Y H:i:s"),
-                "transaction_amount" => isset($spending_data['transaction_amount']) ? $spending_data['transaction_amount'] : 0,
+                "transaction_amount" => isset($spending_data['transaction_amount']) ? round($spending_data['transaction_amount'],2) : 0,
                 "point" => isset($spending_data['points']) ? $spending_data['points'] : 0,
                 "isocurrencycode" => isset($spending_data['isocurrencycode']) ? $spending_data['isocurrencycode'] : "",
                 "promotion_name" => isset($spending_data['idcrm_promotionname']) ? $spending_data['idcrm_promotionname'] : "",
