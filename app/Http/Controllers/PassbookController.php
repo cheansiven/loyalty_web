@@ -943,8 +943,8 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
         $voucher['pass_type_identifier'] = PASS_TYPE_IDENTIFIER_VOUCHER; // Serial number is the same as card Id
 
         $contact_name = isset($voucher['firstname']) ? $voucher['firstname'] : "";
-        $contact_name .= " ";
-        $contact_name .= isset($voucher['lastname']) ? $voucher['lastname'] : "";
+        //$contact_name .= " ";
+        //$contact_name .= isset($voucher['lastname']) ? $voucher['lastname'] : "";
 
         if( $voucher['action'] == "Create" &&  (isset($voucher[IDCRM_SEND_PASSBOOK]) && $voucher[IDCRM_SEND_PASSBOOK] == SEND_VOUCHER_OK)){
             $result = $this->_store_card_data($voucher['action'], $voucher);
@@ -1406,8 +1406,8 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
 
             // 527210001 =credit ,527210000=debit
             $full_name = isset($spending_data['firstname']) ? $spending_data['firstname'] : "";
-            $full_name .= " ";
-            $full_name .= isset($spending_data['lastname']) ? $spending_data['lastname'] : "";
+            //$full_name .= " ";
+            //$full_name .= isset($spending_data['lastname']) ? $spending_data['lastname'] : "";
 
 
             if ($spending_data['idcrm_typeoftransaction'] != SPEDING_TYPE_CREDIT) {
@@ -1590,8 +1590,8 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
             $loyaltyData['pass_type_identifier'] = PASS_TYPE_IDENTIFIER;
 
             $full_name = isset($loyaltyData['firstname']) ? $loyaltyData['firstname'] : "";
-            $full_name .= " ";
-            $full_name .= isset($loyaltyData['lastname']) ? $loyaltyData['lastname'] : "";
+            //$full_name .= " ";
+            //$full_name .= isset($loyaltyData['lastname']) ? $loyaltyData['lastname'] : "";
 
             $action = $data['message'][0]['Action'];
 

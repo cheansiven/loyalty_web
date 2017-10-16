@@ -356,7 +356,7 @@
                                 <p>You spent {{ $transaction_amount.' '.$isocurrencycode }}.</p>
                                 <br/>
                                 <p>
-                                  To download your card, please click on the link below and add it into your wallet. If you don't use an IPhone, the card will be displayed in html page
+                                  To download your card, please click on the link below and add it into your wallet. If you don't use an IPhone, the card will be displayed in html page or download <b>Wallet Passes | Passbook Wallet</b> for convenience.
                                 </p>
                                 <p>
                                   <a href="{{ $url }}" style="color:#BC9B5D">Click here</a>

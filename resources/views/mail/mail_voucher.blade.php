@@ -366,7 +366,7 @@
                                     <p><b>Olá  {{ $contact_name }},</b></p>
                                     <p>Congratulations! You’ve unlocked your first benefit at Uma Nota!</p>
                                     <p>
-                                        To download your voucher, click the button below to add it to your wallet. If you don’t use an iPhone, the card will be displayed as a HTML page.
+                                        To download your voucher, click the button below to add it to your wallet. If you don’t use an iPhone, the card will be displayed as a HTML page or download <b>Wallet Passes | Passbook Wallet</b> for convenience.
                                     </p>
                                     <p><a href="{{ $url }}" target="_blank" style="color:#BC9B5D">Click here</a></p>
                                     <p>Feel free to use it at your next visit!</p>
