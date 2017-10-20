@@ -350,10 +350,11 @@
                                 <p><b>Olá  {{ $contact_name }},</b></p>
                                 <p>We’ve noticed you’ve been splashing some cash with us! To say thank you from the team, now you have a <b>VIP Treatment!</b></p>
                                 <p>This ongoing offer relates to:</p>
-                                <p>1. Priority waitlist placement when you message +852 6053 1193 (min.1 hour before arrival)</p>
-                                <p>2. Early bird access/ priority on event bookings communicated to the member directly via email or verbally</p>
-                                <p>3. Exclusive access to future events/ collaborations at Uma Nota, communicated to the member directly via email or verbally. Each person may only apply for one e-loyalty card. Members must be 18 years and over.</p>
-                                <p>Customers must present a valid Clube card to credit the transaction and visit count
+                                <p>1. Priority waitlist placement when you message +852 6053 1193 (min. 1 hour before restaurant hours i.e. 5pm Mon - Sat evenings, 11am Saturday brunch)</p>
+                                <p>2. Early bird access/ priority on event bookings communicated to you directly via email or verbally</p>
+                                <p>3. Exclusive access to future events/ collaborations at Uma Nota, communicated to you directly via email or verbally.</p>
+                                <p> Each person may only apply for one e-loyalty card. Members must be 18 years and over.
+                                    Customers must present a valid Clube card to credit the transaction and visit count
                                     Transaction values (inclusive of service charge) will be rounded down
                                     Transaction values and the visit count are to be earned immediately upon settlement of the bill
                                     Transaction values and the visit count cannot be transferred to another party
@@ -363,9 +364,6 @@
                                     In case of dispute, the decision of Uma Nota’s management of The Paulistas Clube shall be final. The Paulistas Clube is trademarked by Uma Nota.
 
                                 </p><br/>
-                                <p>
-                                    To download your voucher, click the button below to add it to your wallet. If you don’t use an iPhone, the card will be displayed as a HTML page or download <b>Wallet Passes | Passbook Wallet</b> for convenience.
-                                </p>
                                 <p>
                                     <a href="{{ $url }}" style="color:#BC9B5D">Click here</a>
                                 </p><br/>
