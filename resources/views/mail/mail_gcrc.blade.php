@@ -369,14 +369,18 @@
                                     <p>We value every dollar you spend with us, so each time you visit Uma Nota from here on in you’ll be a step closer to receiving a token of our appreciation and will enjoy exclusive benefits and Uma Nota goodies.</p>
                                     <p>Milestone 1 - Sign-up to The Paulistas Clube<br>
                                       Milestone 2 - Spend exceeds HKD$5000<br>
-                                      Milestone 2 - Spend has exceeded HK$5000 and reached a 5th visit<br>
-                                      Milestone 3 - Spend has exceeded HK$5000 and reached a 10th visit<br>
-                                      Milestone 4 - Spend has exceeded HK$20000 and reached a 5th visit<br>
-                                      Milestone 5 - Spend has exceeded HK20000 and reached a 10th visit
+                                      Milestone 3 - Spend has exceeded HK$5000 and reached a 5th visit<br>
+                                      Milestone 4 - Spend has exceeded HK$5000 and reached a 10th visit<br>
+                                      Milestone 5 - Spend exceeds HK$20000<br>
+                                      Milestone 6 - Spend has exceeded HK$20000 and reached a 5th visit<br>
+                                      Milestone 7 - Spend has exceeded HK20000 and reached a 10th visit
                                     </p>
                                     <p>Just by joining The Paulistas Clube there’s a complimentary drink on us the next time we see you. Check your inbox for an email titled “I owe you a drink” which is your first benefit.</p>
                                     <p>To download your card, please click on the link below and add it into your wallet. If you don't use an IPhone, the card will be displayed in html page or download <b>Wallet Passes | Passbook Wallet</b> for convenience.</p>
                                     <p><a href="{{ $url }}" target="_blank" style="color:#BC9B5D">Click here</a></p>
+                                    <br>
+                                    Remember to show your card to our team on arrival each time you visit.
+                                    <br>
                                     <p>Obrigado and see you soon!</p><br/>
                                     <p><img src="https://umanota.haricrm.com/image/gcrc/Paulistas_Clube_Email_Sig.png" /></p>
                             </div>
