@@ -379,8 +379,8 @@
                                     <p>To download your card, please click on the link below and add it into your wallet. If you don't use an IPhone, the card will be displayed in html page or download <b>Wallet Passes | Passbook Wallet</b> for convenience.</p>
                                     <p><a href="{{ $url }}" target="_blank" style="color:#BC9B5D">Click here</a></p>
                                     <br>
-                                    Remember to show your card to our team on arrival each time you visit.
-                                    <br>
+                                    <p>Remember to show your card to our team on arrival each time you visit.</p><br>
+                                    
                                     <p>Obrigado and see you soon!</p><br/>
                                     <p><img src="https://umanota.haricrm.com/image/gcrc/Paulistas_Clube_Email_Sig.png" /></p>
                             </div>
