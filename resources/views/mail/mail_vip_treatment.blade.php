@@ -348,24 +348,25 @@
                         <td>
                             <div class="article" style="position: relative;background:#ffffff;line-height: 30px;padding-top: 10px;padding-left: 10px;padding-right: 10px;color: #000;">
                                 <p><b>Olá  {{ $contact_name }},</b></p>
-                                <p>We’ve noticed you’ve been splashing some cash with us! To say thank you from the team, now you have a <b>VIP Treatment!</b></p>
-                                <p>This ongoing offer relates to:</p>
-                                <p>1. Priority waitlist placement when you message +852 6053 1193 (min. 1 hour before restaurant hours i.e. 5pm Mon - Sat evenings, 11am Saturday brunch)</p>
-                                <p>2. Early bird access/ priority on event bookings communicated to you directly via email or verbally</p>
-                                <p>3. Exclusive access to future events/ collaborations at Uma Nota, communicated to you directly via email or verbally.</p>
-                                <p> Each person may only apply for one e-loyalty card. Members must be 18 years and over.
-                                    Customers must present a valid Clube card to credit the transaction and visit count
-                                    Transaction values (inclusive of service charge) will be rounded down
-                                    Transaction values and the visit count are to be earned immediately upon settlement of the bill
-                                    Transaction values and the visit count cannot be transferred to another party
+                                <p>We’ve noticed you’ve been splashing some cash with us! To say thank you from the team, you’re entitled to VIP Treatment! </p>
+                                <br>
+                                <p>This ongoing offer relates to:</p><br>
+                                <p>1. Priority waitlist placement when you message +852 6053 1193 (min. 1 hour before restaurant hours i.e. <b>5pm Mon - Sat evenings, 11am Saturday brunch)</b></p><br>
+                                <p>2. Early bird access/ priority on event bookings communicated to you directly via email or verbally</p><br>
+                                <p>3. Exclusive access to future events/ collaborations at Uma Nota, communicated to you directly via email or verbally.</p><br>
+                                <p> Terms & Conditions:
+                                    Each person may only apply for one e-loyalty card. Members must be 18 years and over.
+                                    Customers must present a valid Clube card to credit the transaction and visit count.
+                                    Transaction values (inclusive of service charge) will be rounded down.
+                                    Transaction values and the visit count are to be earned immediately upon settlement of the bill.
+                                    Transaction values and the visit count cannot be transferred to another party.
                                     The Paulistas Clube card and associated offers cannot be exchanged for cash and may not be used in conjunction with any other offers and promotions.
-                                    The e-loyalty card is valid in Hong Kong only.
-                                    Uma Nota reserves the right to modify The Paulistas Clube structure, benefits and Terms & Conditions other without prior notice
-                                    In case of dispute, the decision of Uma Nota’s management of The Paulistas Clube shall be final. The Paulistas Clube is trademarked by Uma Nota.
+                                    The e-loyalty card is valid in Hong Kong only. Uma Nota reserves the right to modify The Paulistas Clube structure, benefits and Terms & Conditions other without prior notice.
+                                    In case of dispute, the decision of Uma Nota’s management of The Paulistas Clube shall be final.
+                                    The Paulistas Clube is trademarked by Uma Nota.<br>
 
                                 </p><br/>
-                                <p>
-                                    <a href="{{ $url }}" style="color:#BC9B5D">Click here</a>
+                                <p>Remember to show your card to our team on arrival each time you visit.
                                 </p><br/>
                                 <p>Thanks for the love & see you soon,</p><br/>
                                 <p><img src="https://umanota.haricrm.com/image/gcrc/Paulistas_Clube_Email_Sig.png" /></p>
