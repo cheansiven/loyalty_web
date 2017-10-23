@@ -374,7 +374,7 @@
                                 <p>We heard that you’ve lost a previous thing… don’t worry, all your vouchers are registered to your Customer Account.</p>
                                 <p>Your waiter will find you in the database, so you can still redeem any available vouchers again.</p>
                                 <p><a href="{{ $url }}" style="color:#BC9B5D">Click here</a></p>
-                                <p>Remember to show your card to our team on arrival each time you visit.</p><br>
+                                <p>Remember to show your card to our team on arrival each time you visit.</p>
                                 <p>Obrigado! & see you soon,</p><br/>
                                 <p><img src="https://umanota.haricrm.com/image/gcrc/Paulistas_Clube_Email_Sig.png" /></p>
                             </div>
