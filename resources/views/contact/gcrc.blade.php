@@ -67,7 +67,7 @@
                 <div style="text-align: center">
                     <a class="" href="/" style="padding:0px 15px!important">
                         @if(isset(\Request::route()->uri)? (\Request::route()->uri != "success"):"" )
-                            <img src="{{asset("image/logo@3x.png")}}" style="height: 120px;margin-top: 30px;margin-bottom: 30px;"/>
+                            <img src="{{asset("image/logo@3x.png")}}" style="height: 120px;margin-top: 30px;margin-bottom: 30px;max-width: 100%;"/>
                         @endif
                     </a>
                 </div>
@@ -236,7 +236,7 @@
                             <li id="foli4" class="notranslate">
                                 <label class="desc" for="city">City</label>
                                 <div>
-                                    <input id="city" class="field text large" name="city" tabindex="4"  type="tel" maxlength="255" value="{{ old("city") }}"/>
+                                    <input id="city" class="field text large" name="city" tabindex="4"  type="text" maxlength="255" value="{{ old("city") }}"/>
                                 </div>
                             </li>
                         </ul>

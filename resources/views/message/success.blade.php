@@ -4,7 +4,7 @@
         <div class="col-md-10 col-md-offset-1 confirm_message">
             <div>
             <br/>
-                Thank you for registering to our Loyalty Programme!
+                Thank you for registering to our Loyalty program!
 
             </div>
 
