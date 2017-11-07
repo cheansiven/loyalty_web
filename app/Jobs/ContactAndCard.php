@@ -8,6 +8,9 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Log;
+use App\Http\Service\ClientService;
+
+
 class ContactAndCard implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -19,9 +22,12 @@ class ContactAndCard implements ShouldQueue
      */
     protected $data;
 
+    protected $client;
+
     public function __construct( $data)
     {
         $this->data =$data;
+        $this->client = new ClientService(CRM_USER , CRM_PASSWORD, CRM_URL);
     }
 
     /**
@@ -86,6 +92,24 @@ class ContactAndCard implements ShouldQueue
                 $entity = $connection->entity("idcrm_loyaltycard", $all_data['card_id']);
                 $entity->idcrm_pushstatus = PUSH_STATUS_RESEND;
                 $result = $entity->update();
+
+                $voucher_condition['idcrm_relatedloyaltycard'] = $all_data['card_id'];
+                $voucher_condition['idcrm_voucherstatus'] = VOUCHER_STATUS_ACTIVE;
+                $check_voucher = $this->client->retriveCrmData("idcrm_loyaltyvoucher", $voucher_condition);
+                if(!empty($check_voucher)){
+                    foreach ($check_voucher as $key=>$check_voucher_result){
+                        Log::create(['description'=>"Resend Voucher",'status'=>1]);
+                        $entity_voucher = $connection->entity("idcrm_loyaltyvoucher", $check_voucher_result['idcrm_voucherid']);
+                        $entity_voucher->idcrm_sendpassbook = SEND_VOUCHER_RESEND;
+                        $entity_voucher->update();
+                    }
+
+
+                }else {
+                    Log::create(['description'=>"Create Voucher.",'status'=>1]);
+                   $this->_create_voucher($connection, $contactId, $all_data['card_id']);
+                }
+
                 if ($result) {
                     return Log::create(['description'=>"Card has been resend.",'status'=>1]);
                 } else {
@@ -106,6 +130,9 @@ class ContactAndCard implements ShouldQueue
                 $loyalty_card->transactioncurrencyid = $connection->entity("transactioncurrency", HK_CURRENCY);
 
                 $loyaltyCardId = $loyalty_card->create();
+
+                $this->_create_voucher($connection, $contactId, $loyaltyCardId);
+
                 if ($loyaltyCardId) {
                     return Log::create(['description'=>"Successfully create new card for old customer",'status'=>1]);
                 }else{
@@ -115,6 +142,59 @@ class ContactAndCard implements ShouldQueue
 
 
         }
+    }
+
+
+
+    private function _create_voucher($connection, $contact_id, $card_id)
+    {
+
+
+        $condition_program_rule['idcrm_ruletype'] = 527210007;
+        $programRule = $this->client->retriveCrmData("new_loyaltyprogramrule", $condition_program_rule);
+        if (!empty($programRule)) {
+            $voucher = $connection->entity('idcrm_loyaltyvoucher');
+            foreach ($programRule as $key => $loyaltyProgramRule) {
+                $voucher->idcrm_loyaltyuser = $connection->entity("idcrm_loyaltyuser", LOYALTY_USER);
+                $voucher->idcrm_sendpassbook = SEND_VOUCHER_OK;
+                $voucher->idcrm_expirationdate = strtotime('+30 days', time()) + date("HKT");
+                $voucher->idcrm_typeofvoucher = TYPE_OF_VOUCHER_PROMOTION;
+                $voucher->idcrm_relatedcontact = $connection->entity("contact", $contact_id);
+                $voucher->idcrm_relatedloyaltyprogram = $connection->entity("idcrm_loyaltyprogram", LOYALTY_PROGRAM);
+                if (isset($loyaltyProgramRule['idcrm_promotionearned'])) {
+                    $voucher->idcrm_relatedloyaltypromotion = $connection->entity("idcrm_loyaltypromotion", $loyaltyProgramRule['idcrm_promotionearned']);
+                }
+                $voucher->idcrm_relatedloyaltycard = $connection->entity("idcrm_loyaltycard", $card_id);
+                if (isset($loyaltyProgramRule['new_loyaltyprogramruleid'])) {
+                    $voucher->idcrm_relatedloyaltyprogramrule = $connection->entity("new_loyaltyprogramrule", $loyaltyProgramRule['new_loyaltyprogramruleid']);
+                }
+                $voucher->idcrm_voucherstatus = VOUCHER_STATUS_OK;
+
+                $voucher->create();
+
+
+
+                if (isset($loyaltyProgramRule['idcrm_pointearned']) and
+                    !empty($loyaltyProgramRule['idcrm_pointearned']) and
+                    $loyaltyProgramRule['idcrm_pointearned'] > 0
+                ) {
+
+                    $loyalty_condition['idcrm_loyaltycardid'] = $card_id;
+
+
+                    $loyalty_data = $this->client->retriveCrmData("idcrm_loyaltycard", $loyalty_condition);
+                    if ($loyalty_data) {
+                        $total_earn_point = isset($loyalty_data['idcrm_totalpoints']) ? (int)$loyalty_data['idcrm_totalpoints'] : 0;
+                        $loyalty_card_update = $connection->entity("idcrm_loyaltycard", $card_id);
+                        $loyalty_card_update->idcrm_totalpoints = (int)($total_earn_point + $loyaltyProgramRule['idcrm_pointearned']);
+                        $loyalty_card_update->update();
+                    }
+
+
+                }
+            }
+        }
+
     }
 
     public function checkRecordCrmExists($connection, $entity_name, $condition = null)
