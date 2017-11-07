@@ -790,140 +790,142 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
 
     public function trigger_create_voucher()
     {
-        $rawInput = fopen('php://input', 'r');
-        $tempStream = fopen('php://temp', 'r+');
-        stream_copy_to_stream($rawInput, $tempStream);
-        rewind($tempStream);
-        if (!file_put_contents(getcwd() . '/temp-voucher.txt', $tempStream)) {
-            Log::create(['description' => 'Server could not write data to temporary location.']);
-            return "Server could not write data to temporary location.";
+        try
+        {
+            $rawInput = fopen('php://input', 'r');
+            $tempStream = fopen('php://temp', 'r+');
+            stream_copy_to_stream($rawInput, $tempStream);
+            rewind($tempStream);
+            if (!file_put_contents(getcwd() . '/temp-voucher.txt', $tempStream)) {
+                Log::create(['description' => 'Server could not write data to temporary location.']);
+                return "Server could not write data to temporary location.";
 
-        }
-
-        $data = file_get_contents(getcwd() . '/temp-voucher.txt');
-
-        $data = $this->formattingData($data);
-
-        if (!isset($data['message'][3]['data'])) {
-            Log::create(['description' => 'Error undefined data.Please checking it thank.', 'status' => 1]);
-            return "Data still empty";
-        }
-        $voucher = array();
-        foreach ($data['message'][3]['data'] as $key => $value) {
-            switch ($value['fieldName']) {
-                case IDCRM_ENTITY_RELATE_CONTACT:
-
-                    foreach ($value['data'] as $contact) {
-
-                        switch ($contact['fieldName']) {
-                            case FIELD_FIRST_NAME:
-                                $voucher[$contact['fieldName']] = isset($contact['value']) ? $contact['value'] : "";
-                                break;
-
-                            case FIELD_LAST_NAME:
-                                $voucher[$contact['fieldName']] = isset($contact['value']) ? $contact['value'] : "";
-                                break;
-
-                            case FIELD_EMAIL:
-
-                                $voucher[$contact['fieldName']] = isset($contact['value']) ? $contact['value'] : "";
-                                break;
-
-                            case FIELD_PHONE:
-                                $voucher[$contact['fieldName']] = isset($contact['value']) ? $contact['value'] : "";
-                                break;
-                            case CONTACT_ID:
-                            case IDCRM_CONTACT_ID:
-                                $voucher["idcrm_contactid"] = isset($contact['value']) ? $contact['value'] : "";
-                                break;
-                            case IDCRM_BIRTHDAY:
-
-                                $voucher["birthdate"] = isset($contact['value']) ? $contact['value'] : "";
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    break;
-
-                case IDCRM_SEND_PASSBOOK:
-                    $voucher[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
-                    break;
-
-                case IDCRM_EXPIRED_DATE:
-                    $voucher[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
-                    break;
-
-                case IDCRM_VOUCHER_NAME:
-                    $voucher[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
-                    break;
-
-                case IDCRM_VOUCHER_AMOUNT:
-                    $voucher[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
-                    break;
-                case IDCRM_VOUCHER_ID:
-                    $voucher[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
-                    break;
-
-                case IDCRM_TYPE_OF_VOUCHER:
-                    $voucher[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
-                    break;
-
-                case ENTITIES_IDCRM_LOYALTY_PROGRAM:
-                    foreach ($value['data'] as $loyaltyProgram) {
-                        if ($loyaltyProgram['fieldName'] == 'idcrm_programname') {
-                            $voucher[$loyaltyProgram['fieldName']] = isset($loyaltyProgram['value']) ? $loyaltyProgram['value'] : "";
-                        } else if ($loyaltyProgram['fieldName'] == 'owningteam') {
-                            $voucher[$loyaltyProgram['fieldName']] = isset($loyaltyProgram['value']) ? $loyaltyProgram['value'] : "";
-                        }
-                    }
-                    break;
-
-
-                case ENTITIES_CONTACT_ANNOTATION:
-                    if (!empty($value['data'])) {
-                        $annotation = end($value['data']);
-
-                        if ($annotation['fieldName'] == 'contact_annotation') {
-                            $voucher["contact_image"] = isset($annotation['value']) ? $annotation['value'] : "";
-                        }
-                    }
-                    break;
-
-                case "idcrm_relatedloyaltypromotion":
-                    foreach ($value['data'] as $relate_loyalty_promotion) {
-                        if ($relate_loyalty_promotion['fieldName'] == 'idcrm_promotionname') {
-                            $voucher[$relate_loyalty_promotion['fieldName']] = isset($relate_loyalty_promotion['value']) ? $relate_loyalty_promotion['value'] : "";
-                        }else if($relate_loyalty_promotion['fieldName'] == 'idcrm_shorttitle'){
-                            $voucher[$relate_loyalty_promotion['fieldName']] = isset($relate_loyalty_promotion['value']) ? $relate_loyalty_promotion['value'] : "";
-                        }
-                    }
-                    break;
-                case 'idcrm_relatedloyaltyprogramrule':
-                    foreach ($value['data'] as $relate_loyalty_program_rule) {
-                        if ($relate_loyalty_program_rule['fieldName'] == 'idcrm_description') {
-                            $voucher[$relate_loyalty_program_rule['fieldName']] = isset($relate_loyalty_program_rule['value']) ? $relate_loyalty_program_rule['value'] : "";
-                        }else if($relate_loyalty_program_rule['fieldName'] == 'idcrm_promotionearned'){
-                            $voucher[$relate_loyalty_program_rule['fieldName']] = isset($relate_loyalty_program_rule['value']) ? $relate_loyalty_program_rule['value'] : "";
-                        }else if($relate_loyalty_program_rule['fieldName'] == 'idcrm_pointstoearn'){
-                            $voucher[$relate_loyalty_program_rule['fieldName']] = isset($relate_loyalty_program_rule['value']) ? $relate_loyalty_program_rule['value'] : "";
-                        }else if($relate_loyalty_program_rule['fieldName'] == 'idcrm_emailtemplate'){
-                            $voucher[$relate_loyalty_program_rule['fieldName']] = isset($relate_loyalty_program_rule['value']) ? $relate_loyalty_program_rule['value'] : "";
-                        }
-                    }
-                    break;
-                case 'idcrm_voucherstatus':
-                    $voucher[$value['fieldName']] = isset($value['label']) ? $value['label'] : "";
-                    $voucher['idcrm_voucherstatus_value'] = isset($value['value']) ? $value['value'] : "";
-                    break;
-                case FIELD_IDCRM_CREATE_ON:
-                    $voucher[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
-                    break;
-                default:
-                    break;
             }
 
-        }
+            $data = file_get_contents(getcwd() . '/temp-voucher.txt');
+
+            $data = $this->formattingData($data);
+
+            if (!isset($data['message'][3]['data'])) {
+                Log::create(['description' => 'Error undefined data.Please checking it thank.', 'status' => 1]);
+                return "Data still empty";
+            }
+            $voucher = array();
+            foreach ($data['message'][3]['data'] as $key => $value) {
+                switch ($value['fieldName']) {
+                    case IDCRM_ENTITY_RELATE_CONTACT:
+
+                        foreach ($value['data'] as $contact) {
+
+                            switch ($contact['fieldName']) {
+                                case FIELD_FIRST_NAME:
+                                    $voucher[$contact['fieldName']] = isset($contact['value']) ? $contact['value'] : "";
+                                    break;
+
+                                case FIELD_LAST_NAME:
+                                    $voucher[$contact['fieldName']] = isset($contact['value']) ? $contact['value'] : "";
+                                    break;
+
+                                case FIELD_EMAIL:
+
+                                    $voucher[$contact['fieldName']] = isset($contact['value']) ? $contact['value'] : "";
+                                    break;
+
+                                case FIELD_PHONE:
+                                    $voucher[$contact['fieldName']] = isset($contact['value']) ? $contact['value'] : "";
+                                    break;
+                                case CONTACT_ID:
+                                case IDCRM_CONTACT_ID:
+                                    $voucher["idcrm_contactid"] = isset($contact['value']) ? $contact['value'] : "";
+                                    break;
+                                case IDCRM_BIRTHDAY:
+
+                                    $voucher["birthdate"] = isset($contact['value']) ? $contact['value'] : "";
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        break;
+
+                    case IDCRM_SEND_PASSBOOK:
+                        $voucher[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
+                        break;
+
+                    case IDCRM_EXPIRED_DATE:
+                        $voucher[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
+                        break;
+
+                    case IDCRM_VOUCHER_NAME:
+                        $voucher[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
+                        break;
+
+                    case IDCRM_VOUCHER_AMOUNT:
+                        $voucher[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
+                        break;
+                    case IDCRM_VOUCHER_ID:
+                        $voucher[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
+                        break;
+
+                    case IDCRM_TYPE_OF_VOUCHER:
+                        $voucher[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
+                        break;
+
+                    case ENTITIES_IDCRM_LOYALTY_PROGRAM:
+                        foreach ($value['data'] as $loyaltyProgram) {
+                            if ($loyaltyProgram['fieldName'] == 'idcrm_programname') {
+                                $voucher[$loyaltyProgram['fieldName']] = isset($loyaltyProgram['value']) ? $loyaltyProgram['value'] : "";
+                            } else if ($loyaltyProgram['fieldName'] == 'owningteam') {
+                                $voucher[$loyaltyProgram['fieldName']] = isset($loyaltyProgram['value']) ? $loyaltyProgram['value'] : "";
+                            }
+                        }
+                        break;
+
+
+                    case ENTITIES_CONTACT_ANNOTATION:
+                        if (!empty($value['data'])) {
+                            $annotation = end($value['data']);
+
+                            if ($annotation['fieldName'] == 'contact_annotation') {
+                                $voucher["contact_image"] = isset($annotation['value']) ? $annotation['value'] : "";
+                            }
+                        }
+                        break;
+
+                    case "idcrm_relatedloyaltypromotion":
+                        foreach ($value['data'] as $relate_loyalty_promotion) {
+                            if ($relate_loyalty_promotion['fieldName'] == 'idcrm_promotionname') {
+                                $voucher[$relate_loyalty_promotion['fieldName']] = isset($relate_loyalty_promotion['value']) ? $relate_loyalty_promotion['value'] : "";
+                            }else if($relate_loyalty_promotion['fieldName'] == 'idcrm_shorttitle'){
+                                $voucher[$relate_loyalty_promotion['fieldName']] = isset($relate_loyalty_promotion['value']) ? $relate_loyalty_promotion['value'] : "";
+                            }
+                        }
+                        break;
+                    case 'idcrm_relatedloyaltyprogramrule':
+                        foreach ($value['data'] as $relate_loyalty_program_rule) {
+                            if ($relate_loyalty_program_rule['fieldName'] == 'idcrm_description') {
+                                $voucher[$relate_loyalty_program_rule['fieldName']] = isset($relate_loyalty_program_rule['value']) ? $relate_loyalty_program_rule['value'] : "";
+                            }else if($relate_loyalty_program_rule['fieldName'] == 'idcrm_promotionearned'){
+                                $voucher[$relate_loyalty_program_rule['fieldName']] = isset($relate_loyalty_program_rule['value']) ? $relate_loyalty_program_rule['value'] : "";
+                            }else if($relate_loyalty_program_rule['fieldName'] == 'idcrm_pointstoearn'){
+                                $voucher[$relate_loyalty_program_rule['fieldName']] = isset($relate_loyalty_program_rule['value']) ? $relate_loyalty_program_rule['value'] : "";
+                            }else if($relate_loyalty_program_rule['fieldName'] == 'idcrm_emailtemplate'){
+                                $voucher[$relate_loyalty_program_rule['fieldName']] = isset($relate_loyalty_program_rule['value']) ? $relate_loyalty_program_rule['value'] : "";
+                            }
+                        }
+                        break;
+                    case 'idcrm_voucherstatus':
+                        $voucher[$value['fieldName']] = isset($value['label']) ? $value['label'] : "";
+                        $voucher['idcrm_voucherstatus_value'] = isset($value['value']) ? $value['value'] : "";
+                        break;
+                    case FIELD_IDCRM_CREATE_ON:
+                        $voucher[$value['fieldName']] = isset($value['value']) ? $value['value'] : "";
+                        break;
+                    default:
+                        break;
+                }
+
+            }
 
 
 //        $image = $this->covert_base64(isset($voucher["contact_image"]) ? $voucher["contact_image"] : "",
@@ -935,117 +937,122 @@ This pass may contain trademarks that are licensed or affiliated with HARi crm.'
             unset($voucher["contact_image"]);
 //        }
 
-        $voucher["cardId"] = isset($data['message'][1]['PrimaryEntityId']) ? $data['message'][1]['PrimaryEntityId'] : "";
-        $voucher['authenticationToken'] = PASS_AUTH_TOKEN;
-        $voucher['action'] = $data['message'][0]['Action'];
-        $voucher['serial_number'] = $voucher["cardId"]; // Serial number is the same as card Id
-        $voucher['pass_type'] = 2; // Serial number is the same as card Id
-        $voucher['pass_type_identifier'] = PASS_TYPE_IDENTIFIER_VOUCHER; // Serial number is the same as card Id
+            $voucher["cardId"] = isset($data['message'][1]['PrimaryEntityId']) ? $data['message'][1]['PrimaryEntityId'] : "";
+            $voucher['authenticationToken'] = PASS_AUTH_TOKEN;
+            $voucher['action'] = $data['message'][0]['Action'];
+            $voucher['serial_number'] = $voucher["cardId"]; // Serial number is the same as card Id
+            $voucher['pass_type'] = 2; // Serial number is the same as card Id
+            $voucher['pass_type_identifier'] = PASS_TYPE_IDENTIFIER_VOUCHER; // Serial number is the same as card Id
 
-        $contact_name = isset($voucher['firstname']) ? $voucher['firstname'] : "";
-        //$contact_name .= " ";
-        //$contact_name .= isset($voucher['lastname']) ? $voucher['lastname'] : "";
+            $contact_name = isset($voucher['firstname']) ? $voucher['firstname'] : "";
+            //$contact_name .= " ";
+            //$contact_name .= isset($voucher['lastname']) ? $voucher['lastname'] : "";
 
-        if( $voucher['action'] == "Create" &&  (isset($voucher[IDCRM_SEND_PASSBOOK]) && $voucher[IDCRM_SEND_PASSBOOK] == SEND_VOUCHER_OK)){
-            $result = $this->_store_card_data($voucher['action'], $voucher);
-
-            if ($result) {
-                $serial_voucher =isset($voucher['serial_number'])?$voucher['serial_number']:"";
-                $url = "https://umanota.haricrm.com/download_voucher/$serial_voucher";
-                $mail_data = array(
-                    "url" => $url, // . $voucher['serial_number'],
-                    "serial_number" => isset($voucher['serial_number'])?$voucher['serial_number']:"",
-                    "contact_name" => $contact_name,
-                    'first_name' => isset($voucher['firstname']) ? $voucher['firstname'] : "",
-                    'last_name' => isset($voucher['lastname']) ? $voucher['lastname'] : "",
-                    "loyalty_program" => isset($voucher['idcrm_programname']) ? $voucher['idcrm_programname'] : "",
-                    "venue" => isset($voucher['venue_name']) ? $voucher['venue_name'] : "",
-                    "template" => isset($voucher['idcrm_emailtemplate'])?$voucher['idcrm_emailtemplate']:'mail_voucher'
-                );
-                $subject = isset($voucher['idcrm_promotionname'])?$voucher['idcrm_promotionname']:"Welcome back to The Paulistas Clube";
-                $title = "Alex at Uma Nota";
-                $type = "Alex at Uma Nota";
-
-                $mail_data_id = $this->store_mail_data($mail_data, $type);
-                $mail_data['mail_data_id'] = $mail_data_id;
-
-                $this->dispatch(new SendMail($voucher['emailaddress1'], "info@uma-nota.com", $subject, $title, $mail_data));
-
-                $pusback = array(
-                    "idcrm_authenticationtoken" => $voucher['authenticationToken'],
-                    "idcrm_barcode" => isset($voucher['idcrm_voucherid']) ? $voucher['idcrm_voucherid'] : "",
-                    "idcrm_passtypeid" => PASS_TYPE_IDENTIFIER_VOUCHER,
-                    "idcrm_serialnumber" => isset($voucher['idcrm_voucherid']) ? $voucher['idcrm_voucherid'] : "",
-                );
-
-                $this->dispatch(new PushLoyaltyCard(CRM_USER, CRM_PASSWORD, CRM_MODE, CRM_URL, CRM_ORG, $voucher['cardId'], IDCRM_ENTITY_VOUCHER_CARD, $pusback));
-
-                return "Card has been Created";
-            }
-
-            return "Error Record Local Storage.";
-
-        }else if( $voucher['action'] == "Update" && (isset($voucher[IDCRM_SEND_PASSBOOK]) && $voucher[IDCRM_SEND_PASSBOOK] == SEND_VOUCHER_RESEND)){
-            $result = $this->_store_card_data($voucher['action'], $voucher);
-            if ($result) {
-                $url = "https://umanota.haricrm.com/download_voucher/".$voucher['serial_number'];
-                $mail_data = array(
-                    "url" => $url,
-                    "serial_number" => isset($voucher['serial_number'])?$voucher['serial_number']:"",
-                    "contact_name" => $contact_name,
-                    'first_name' => isset($voucher['firstname']) ? $voucher['firstname'] : "",
-                    'last_name' => isset($voucher['lastname']) ? $voucher['lastname'] : "",
-                    "loyalty_program" => isset($voucher['idcrm_programname']) ? $voucher['idcrm_programname'] : "",
-                    "venue" => isset($voucher['venue_name']) ? $voucher['venue_name'] : "",
-                    "template" => 'resend_voucher'
-                );
-                $subject = "Resend Voucher";
-                $title = "Alex at Uma Nota";
-                $type ='Alex at Uma Nota';
-                $mail_data_id = $this->store_mail_data($mail_data, $type);
-                $mail_data['mail_data_id'] = $mail_data_id;
-
-                $this->dispatch(new SendMail($voucher['emailaddress1'], "info@uma-nota.com", $subject, $title, $mail_data));
-
-                $pusback = array(
-                    "idcrm_sendpassbook" => SEND_VOUCHER_OK
-                );
-
-                $this->dispatch(new PushLoyaltyCard(CRM_USER, CRM_PASSWORD, CRM_MODE, CRM_URL, CRM_ORG, $voucher['cardId'], "idcrm_loyaltyvoucher", $pusback));
-                return "Card has been Resend";
-            }
-
-            return "Error Record Local Storage.";
-
-        }else if( $voucher['action'] == "Update" && (isset($voucher['idcrm_voucherstatus_value']) && $voucher['idcrm_voucherstatus_value'] == VOUCHER_STATUS_USED)){
-            \Log::info("Contact ID:" . $voucher['idcrm_contactid']);
-            $get_contact = Passes::where("contact_id", $voucher['idcrm_contactid'])->first();
-            if ($get_contact) {
+            if( $voucher['action'] == "Create" &&  (isset($voucher[IDCRM_SEND_PASSBOOK]) && $voucher[IDCRM_SEND_PASSBOOK] == SEND_VOUCHER_OK)){
                 $result = $this->_store_card_data($voucher['action'], $voucher);
 
                 if ($result) {
-                    $devices = DB::table('passes')
-                        ->join('ios_device_registrations', 'ios_device_registrations.serial_number', '=', 'passes.serial_number')
-                        ->join('ios_devices', 'ios_devices.device_id', '=', 'ios_device_registrations.device_id')
-                        ->where(['passes.serial_number' => $voucher['serial_number'], 'passes.pass_type'=>'2'])
-                        ->select('ios_devices.*', 'passes.owningteam', "ios_device_registrations.device_type")
-                        ->get();
+                    $serial_voucher =isset($voucher['serial_number'])?$voucher['serial_number']:"";
+                    $url = "https://umanota.haricrm.com/download_voucher/$serial_voucher";
+                    $mail_data = array(
+                        "url" => $url, // . $voucher['serial_number'],
+                        "serial_number" => isset($voucher['serial_number'])?$voucher['serial_number']:"",
+                        "contact_name" => $contact_name,
+                        'first_name' => isset($voucher['firstname']) ? $voucher['firstname'] : "",
+                        'last_name' => isset($voucher['lastname']) ? $voucher['lastname'] : "",
+                        "loyalty_program" => isset($voucher['idcrm_programname']) ? $voucher['idcrm_programname'] : "",
+                        "venue" => isset($voucher['venue_name']) ? $voucher['venue_name'] : "",
+                        "template" => isset($voucher['idcrm_emailtemplate'])?$voucher['idcrm_emailtemplate']:'mail_voucher'
+                    );
+                    $subject = isset($voucher['idcrm_promotionname'])?$voucher['idcrm_promotionname']:"Welcome back to The Paulistas Clube";
+                    $title = "Alex at Uma Nota";
+                    $type = "Alex at Uma Nota";
 
-                    foreach ($devices as $device) {
-                        \Log::info("Push Notification:" . $device->push_token);
-                        \Log::info("Push Owningteam:" . $device->owningteam);
-                        \Log::info("Device Type :" . $device->device_type);
+                    $mail_data_id = $this->store_mail_data($mail_data, $type);
+                    $mail_data['mail_data_id'] = $mail_data_id;
 
-                        $this->push_notification($device->push_token, $device->owningteam, 'voucher');
+                    $this->dispatch(new SendMail($voucher['emailaddress1'], "info@uma-nota.com", $subject, $title, $mail_data));
 
-                    }
-                    return "Success push notification to update status on card with used";
+                    $pusback = array(
+                        "idcrm_authenticationtoken" => $voucher['authenticationToken'],
+                        "idcrm_barcode" => isset($voucher['idcrm_voucherid']) ? $voucher['idcrm_voucherid'] : "",
+                        "idcrm_passtypeid" => PASS_TYPE_IDENTIFIER_VOUCHER,
+                        "idcrm_serialnumber" => isset($voucher['idcrm_voucherid']) ? $voucher['idcrm_voucherid'] : "",
+                    );
+
+                    $this->dispatch(new PushLoyaltyCard(CRM_USER, CRM_PASSWORD, CRM_MODE, CRM_URL, CRM_ORG, $voucher['cardId'], IDCRM_ENTITY_VOUCHER_CARD, $pusback));
+
+                    return "Card has been Created";
                 }
-                return "Not Found Device to update";
+
+                return "Error Record Local Storage.";
+
+            }else if( $voucher['action'] == "Update" && (isset($voucher[IDCRM_SEND_PASSBOOK]) && $voucher[IDCRM_SEND_PASSBOOK] == SEND_VOUCHER_RESEND)){
+                $result = $this->_store_card_data($voucher['action'], $voucher);
+                if ($result) {
+                    $url = "https://umanota.haricrm.com/download_voucher/".$voucher['serial_number'];
+                    $mail_data = array(
+                        "url" => $url,
+                        "serial_number" => isset($voucher['serial_number'])?$voucher['serial_number']:"",
+                        "contact_name" => $contact_name,
+                        'first_name' => isset($voucher['firstname']) ? $voucher['firstname'] : "",
+                        'last_name' => isset($voucher['lastname']) ? $voucher['lastname'] : "",
+                        "loyalty_program" => isset($voucher['idcrm_programname']) ? $voucher['idcrm_programname'] : "",
+                        "venue" => isset($voucher['venue_name']) ? $voucher['venue_name'] : "",
+                        "template" => 'resend_voucher'
+                    );
+                    $subject = "Resend Voucher";
+                    $title = "Alex at Uma Nota";
+                    $type ='Alex at Uma Nota';
+                    $mail_data_id = $this->store_mail_data($mail_data, $type);
+                    $mail_data['mail_data_id'] = $mail_data_id;
+
+                    $this->dispatch(new SendMail($voucher['emailaddress1'], "info@uma-nota.com", $subject, $title, $mail_data));
+
+                    $pusback = array(
+                        "idcrm_sendpassbook" => SEND_VOUCHER_OK
+                    );
+
+                    $this->dispatch(new PushLoyaltyCard(CRM_USER, CRM_PASSWORD, CRM_MODE, CRM_URL, CRM_ORG, $voucher['cardId'], "idcrm_loyaltyvoucher", $pusback));
+                    return "Card has been Resend";
+                }
+
+                return "Error Record Local Storage.";
+
+            }else if( $voucher['action'] == "Update" && (isset($voucher['idcrm_voucherstatus_value']) && $voucher['idcrm_voucherstatus_value'] == VOUCHER_STATUS_USED)){
+                \Log::info("Contact ID:" . $voucher['idcrm_contactid']);
+                $get_contact = Passes::where("contact_id", $voucher['idcrm_contactid'])->first();
+                if ($get_contact) {
+                    $result = $this->_store_card_data($voucher['action'], $voucher);
+
+                    if ($result) {
+                        $devices = DB::table('passes')
+                            ->join('ios_device_registrations', 'ios_device_registrations.serial_number', '=', 'passes.serial_number')
+                            ->join('ios_devices', 'ios_devices.device_id', '=', 'ios_device_registrations.device_id')
+                            ->where(['passes.serial_number' => $voucher['serial_number'], 'passes.pass_type'=>'2'])
+                            ->select('ios_devices.*', 'passes.owningteam', "ios_device_registrations.device_type")
+                            ->get();
+
+                        foreach ($devices as $device) {
+                            \Log::info("Push Notification:" . $device->push_token);
+                            \Log::info("Push Owningteam:" . $device->owningteam);
+                            \Log::info("Device Type :" . $device->device_type);
+
+                            $this->push_notification($device->push_token, $device->owningteam, 'voucher');
+
+                        }
+                        return "Success push notification to update status on card with used";
+                    }
+                    return "Not Found Device to update";
+                }
             }
+            Log::create(['description' => "No Condition Match with this process", 'status' => 1]);
+
+            return ;
+        }catch (\Exception $exception){
+            Log::create(['description' => $exception->getMessage(), 'status' => 1]);
         }
 
-        return ;
 
 
     }
