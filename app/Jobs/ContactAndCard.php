@@ -106,8 +106,8 @@ class ContactAndCard implements ShouldQueue
 
 
                 }else {
-                    Log::create(['description'=>"Create Voucher.",'status'=>1]);
-                   $this->_create_voucher($connection, $contactId, $all_data['card_id']);
+                    Log::create(['description'=>"Resend Card and Create Voucher",'status'=>1]);
+                   $this->_create_voucher($connection, $all_data['contact_id'], $all_data['card_id']);
                 }
 
                 if ($result) {
@@ -131,7 +131,7 @@ class ContactAndCard implements ShouldQueue
 
                 $loyaltyCardId = $loyalty_card->create();
 
-                $this->_create_voucher($connection, $contactId, $loyaltyCardId);
+                $this->_create_voucher($connection, $all_data['contact_id'], $loyaltyCardId);
 
                 if ($loyaltyCardId) {
                     return Log::create(['description'=>"Successfully create new card for old customer",'status'=>1]);
@@ -149,12 +149,13 @@ class ContactAndCard implements ShouldQueue
     private function _create_voucher($connection, $contact_id, $card_id)
     {
 
-
         $condition_program_rule['idcrm_ruletype'] = 527210007;
         $programRule = $this->client->retriveCrmData("new_loyaltyprogramrule", $condition_program_rule);
+
         if (!empty($programRule)) {
-            $voucher = $connection->entity('idcrm_loyaltyvoucher');
+
             foreach ($programRule as $key => $loyaltyProgramRule) {
+                $voucher = $connection->entity('idcrm_loyaltyvoucher');
                 $voucher->idcrm_loyaltyuser = $connection->entity("idcrm_loyaltyuser", LOYALTY_USER);
                 $voucher->idcrm_sendpassbook = SEND_VOUCHER_OK;
                 $voucher->idcrm_expirationdate = strtotime('+30 days', time()) + date("HKT");
@@ -169,7 +170,6 @@ class ContactAndCard implements ShouldQueue
                     $voucher->idcrm_relatedloyaltyprogramrule = $connection->entity("new_loyaltyprogramrule", $loyaltyProgramRule['new_loyaltyprogramruleid']);
                 }
                 $voucher->idcrm_voucherstatus = VOUCHER_STATUS_OK;
-
                 $voucher->create();
 
 
