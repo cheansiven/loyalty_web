@@ -39,7 +39,6 @@ class ContactAndCard extends MainQueue implements ShouldQueue
     {
         $connection = $this->_getConnection('connection.txt');
 
-
         $all_data =$this->data;
 
         $contact = $connection->entity('contact', $all_data['contact_id']);
@@ -61,7 +60,6 @@ class ContactAndCard extends MainQueue implements ShouldQueue
 
         if($contactId)
         {
-
             if(isset($all_data["server_path"]) and $all_data["server_path"] !="")
             {
                 $annotation_condition['objectid'] = $all_data['contact_id'];

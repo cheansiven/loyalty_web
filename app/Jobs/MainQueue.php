@@ -8,20 +8,14 @@
 
 namespace App\Jobs;
 
-
 class MainQueue
 {
-
-
-
     protected function _create_voucher($client, $connection, $contact_id, $card_id)
     {
-
         $condition_program_rule['idcrm_ruletype'] = 527210007;
         $programRule = $client->retriveCrmData("new_loyaltyprogramrule", $condition_program_rule);
 
         if (!empty($programRule)) {
-
             foreach ($programRule as $key => $loyaltyProgramRule) {
                 $voucher = $connection->entity('idcrm_loyaltyvoucher');
                 $voucher->idcrm_loyaltyuser = $connection->entity("idcrm_loyaltyuser", LOYALTY_USER);
@@ -40,16 +34,12 @@ class MainQueue
                 $voucher->idcrm_voucherstatus = VOUCHER_STATUS_OK;
                 $voucher->create();
 
-
-
                 if (isset($loyaltyProgramRule['idcrm_pointearned']) and
                     !empty($loyaltyProgramRule['idcrm_pointearned']) and
                     $loyaltyProgramRule['idcrm_pointearned'] > 0
                 ) {
 
                     $loyalty_condition['idcrm_loyaltycardid'] = $card_id;
-
-
                     $loyalty_data = $client->retriveCrmData("idcrm_loyaltycard", $loyalty_condition);
                     if ($loyalty_data) {
                         $total_earn_point = isset($loyalty_data['idcrm_totalpoints']) ? (int)$loyalty_data['idcrm_totalpoints'] : 0;
@@ -57,8 +47,6 @@ class MainQueue
                         $loyalty_card_update->idcrm_totalpoints = (int)($total_earn_point + $loyaltyProgramRule['idcrm_pointearned']);
                         $loyalty_card_update->update();
                     }
-
-
                 }
             }
         }

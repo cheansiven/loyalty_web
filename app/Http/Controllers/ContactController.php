@@ -34,7 +34,6 @@ class ContactController extends Controller
 
     public function index()
     {
-
         return view('contact.index', ['status' => 'start']);
     }
 
@@ -53,10 +52,6 @@ class ContactController extends Controller
         $card->idcrm_lastuseddate = time() + date("HKT");
 
         dd($card->update());
-
-
-
-
     }
 
     public function getForm()
@@ -214,8 +209,6 @@ class ContactController extends Controller
                         unlink(session("server_path_gcrc"));
                     }
                 }
-
-
                 $path_file_name = $checkdir . '/' . rand(1, 100) . rand(1, 100) . rand(1, 100) . rand(1, 100) . rand(1, 100) . '.png';
 
                 move_uploaded_file($_FILES["thumbnail"]["tmp_name"], $path_file_name);

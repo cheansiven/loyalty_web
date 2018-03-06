@@ -46,7 +46,6 @@ class Card extends MainQueue implements ShouldQueue
             $entity->idcrm_pushstatus = PUSH_STATUS_RESEND;
             $result = $entity->update();
 
-
             $voucher_condition['idcrm_relatedloyaltycard'] = $request['card_id'];
             $voucher_condition['idcrm_voucherstatus'] = VOUCHER_STATUS_ACTIVE;
             $check_voucher = $this->client->retriveCrmData("idcrm_loyaltyvoucher", $voucher_condition);

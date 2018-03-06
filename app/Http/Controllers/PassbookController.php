@@ -54,13 +54,13 @@ class PassbookController extends Controller
     public function GCM_push_notification($push_token, $owningteam)
     {
         \Log::info("Function Push Notification of Android has been Execute");
-        $apiKey = "b185e0e86229495eb2d36b61be31dabd";
+        $apiKey = "01aa68137c5b4f5fb0c0d697ad286a13";
 
         // Set POST variables
         $url = 'https://walletpasses.appspot.com/api/v1/push';
 
         $fields = array(
-            'passTypeIdentifier' => "pass.com.idcrmltd.pushloyalty",
+            'passTypeIdentifier' => PASS_TYPE_IDENTIFIER,
             'pushTokens' => array($push_token),
         );
 
